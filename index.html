@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminus Simple</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">
+            <img src="../assets/imgs/logo.png" alt="">
+        </div>
+
+        <div class="theme">
+            .
+        </div>
+        <div class="user_profile">
+            <div class="profile">
+                <img src="./assets/imgs/profile/avatar.png" alt="">
+            </div>
+            <div class="profile_details">
+                <p class="user_name">Dewunmi Codespro </p>
+                <small class="user_role">Admin</small>
+                <button>
+                    <img src="./assets/imgs/icons/more_vert_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+                </button>
+            </div>
+        </div>
+
+    </nav>
+    <div class="side_nav">
+        <ul>
+            <li><a href="#" class="active" data-page="dashboard"> <img
+                        src="./assets/imgs/icons/dashboard_2_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+                    <p>Dashboard</p>
+                </a></li>
+            <li><a href="#" data-page="report"><img
+                        src="./assets/imgs/icons/graph_5_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+                    <p>Reports</p>
+                </a></li>
+            <li><a href="#" data-page="gatein"><img
+                        src="./assets/imgs/icons/login_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+                    <p>Gate-in</p>
+                </a></li>
+            <li><a href="#" data-page="gateout"><img class="rotate-180"
+                        src="./assets/imgs/icons/login_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+                    <p>
+                        Gate-out
+                    </p>
+                </a></li>
+            <li><a href="#" data-page="manage"><img
+                        src="./assets/imgs/icons/settings_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+                    <p>Manage</p>
+                </a></li>
+        </ul>
+    </div>
+    <main>
+        <section id="dashboard" class="page active">
+            <div class="title">
+                <p><i class=" small">Welcome!</p></i> <span class="user_name">Dewunmi Codespro</span>
+            </div>
+
+
+            <div class=" cards">
+                <div class="card">
+                    <h3>Total Vehicles</h3>
+                    <p>150</p>
+                </div>
+                <div class="card">
+                    <h3>Vehicles In</h3>
+                    <p>80</p>
+                </div>
+                <div class="card">
+                    <h3>Vehicles Out</h3>
+                    <p>70</p>
+                </div>
+            </div>
+
+            <div class="recent_card">
+                <header>
+                    <h5>Recent activities</h5>
+                    <a href=""></a>
+                    <p>See all</p>
+                </header>
+
+
+                <div class="recent_card-boxes">
+                    <!-- Gate-in: Import -->
+                    <a class="activity gate-in">
+                        <span class="tag in">Gate-in</span>
+                        <span class="type import">Import</span>
+                        <div class="details">
+                            <p class="title">Container IN – TCLU 4589213</p>
+                            <small>From Apapa Port • 08:42 AM</small>
+                        </div>
+                    </a>
+
+                    <!-- Gate-out: Import -->
+                    <a class="activity gate-out">
+                        <span class="tag out">Gate-out</span>
+                        <span class="type import">Import</span>
+                        <div class="details">
+                            <p class="title">Container OUT – MSKU 7732019</p>
+                            <small>To Ikeja Warehouse • 09:15 AM</small>
+                        </div>
+                    </a>
+
+                    <!-- Gate-in: Empty -->
+                    <a class="activity gate-in">
+                        <span class="tag in">Gate-in</span>
+                        <span class="type empty">Empty</span>
+                        <div class="details">
+                            <p class="title">Empty Container IN – CMAU 1098832</p>
+                            <small>Truck #TRK-118 • 10:03 AM</small>
+                        </div>
+                    </a>
+
+                    <!-- Gate-out: Export Release -->
+                    <a class="activity gate-out">
+                        <span class="tag out">Gate-out</span>
+                        <span class="type export">Export Release</span>
+                        <div class="details">
+                            <p class="title">Container OUT – TGHU 6641201</p>
+                            <small>Released for Export • 11:27 AM</small>
+                        </div>
+                    </a>
+
+                    <!-- Gate-out: Empty Return -->
+                    <a class="activity gate-out">
+                        <span class="tag out">Gate-out</span>
+                        <span class="type empty">Empty Return</span>
+                        <div class="details">
+                            <p class="title">Empty Container OUT – MSKU 2209811</p>
+                            <small>Returned to Depot • 12:10 PM</small>
+                        </div>
+                    </a>
+
+                    <!-- Gate-out: Container Sales -->
+                    <a class="activity gate-out">
+                        <span class="tag out">Gate-out</span>
+                        <span class="type sales">Container Sales</span>
+                        <div class="details">
+                            <p class="title">Container SOLD – TLLU 9007721</p>
+                            <small>Customer Pickup • 01:05 PM</small>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="gatein" class="page">
+            <div class="tabs">
+                <button class="tab active" data-tab="import">Import</button>
+                <button class="tab" data-tab="empty">Empty</button>
+            </div>
+
+            <!-- Import Form -->
+            <form class="tab-content active" id="import">
+                <div class="form-grid">
+                    <div class="field">
+                        <label>Agent Name</label>
+                        <input type="text" placeholder="Transire">
+                    </div>
+
+                    <div class="field">
+                        <label>Driver Name</label>
+                        <input type="text" placeholder="Driver name">
+                    </div>
+
+                    <div class="field">
+                        <label>Truck No</label>
+                        <input type="text" placeholder="TRK-102">
+                    </div>
+
+                    <div class="field">
+                        <label>Driver Phone</label>
+                        <input type="tel" placeholder="0803xxxxxxx">
+                    </div>
+
+                    <div class="field with-btn">
+                        <label>Container Number</label>
+                        <input type="text" placeholder="TCLU 4589213">
+                        <button type="button" class="capture">Capture</button>
+                    </div>
+
+                    <div class="field">
+                        <label>Container Size</label>
+                        <select>
+                            <option>20FT</option>
+                            <option>40FT</option>
+                            <option>40FT HC</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>Shipping Company</label>
+                        <input type="text" placeholder="Maersk, CMA CGM">
+                    </div>
+
+                    <div class="field with-btn">
+                        <label>Gate-in Receiver</label>
+                        <input type="text" placeholder="Officer Name">
+                        <button type="button" class="capture">Capture</button>
+                    </div>
+                </div>
+
+                <button class="submit-btn">Submit Import Gate-In</button>
+            </form>
+
+            <!-- Empty Form -->
+            <form class="tab-content" id="empty">
+                <div class="form-grid">
+                    <div class="field">
+                        <label>Port Incoming</label>
+                        <select>
+                            <option>Apapa</option>
+                            <option>Tincan</option>
+                            <option>Lekki</option>
+                        </select>
+                    </div>
+
+                    <div class="field with-btn">
+                        <label>Container Number</label>
+                        <input type="text">
+                        <button type="button" class="capture">Capture</button>
+                    </div>
+
+                    <div class="field">
+                        <label>Container Size</label>
+                        <select>
+                            <option>20FT</option>
+                            <option>40FT</option>
+                            <option>40FT HC</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>Driver Name</label>
+                        <input type="text">
+                    </div>
+
+                    <div class="field">
+                        <label>Truck Number</label>
+                        <input type="text">
+                    </div>
+
+                    <div class="field">
+                        <label>Driver Phone</label>
+                        <input type="tel">
+                    </div>
+
+                    <div class="field">
+                        <label>Shipping Line</label>
+                        <input type="text">
+                    </div>
+                </div>
+
+                <button class="submit-btn">Submit Empty Gate-In</button>
+            </form>
+
+            <section id="recent-entries">
+                <h5>Recent Gate-in Entries</h5>
+                <div class="recent-list">
+
+                    <!-- Gate-in Import -->
+                    <div class="recent-item">
+                        <div class="top">
+                            <span>Gate-in (Import)</span>
+                            <span>08:42 AM</span>
+                        </div>
+                        <small>
+                            Container TCLU 4589213 • Driver: John Doe • Truck: TRK-102 • Shipping: Maersk
+                        </small>
+                    </div>
+
+                    <div class="recent-item">
+                        <div class="top">
+                            <span>Gate-in (Import)</span>
+                            <span>09:15 AM</span>
+                        </div>
+                        <small>
+                            Container MSKU 7732019 • Driver: Mike Oladele • Truck: TRK-089 • Shipping: CMA CGM
+                        </small>
+                    </div>
+
+                    <!-- Gate-in Empty -->
+                    <div class="recent-item">
+                        <div class="top">
+                            <span>Gate-in (Empty)</span>
+                            <span>10:03 AM</span>
+                        </div>
+                        <small>
+                            Container CMAU 1098832 • Driver: Tunde Balogun • Truck: TRK-118 • Port: Apapa
+                        </small>
+                    </div>
+
+                    <!-- More entries -->
+                    <div class="recent-item">
+                        <div class="top">
+                            <span>Gate-in (Empty)</span>
+                            <span>11:27 AM</span>
+                        </div>
+                        <small>
+                            Container TGHU 6641201 • Driver: Chuka Nwosu • Truck: TRK-220 • Port: Tincan
+                        </small>
+                    </div>
+
+                </div>
+            </section>
+        </section>
+
+        <section id="gateout" class="page">
+            <div class="tabs">
+                <button class="tab active" data-tab="go-import">Import</button>
+                <button class="tab" data-tab="go-empty">Empty</button>
+                <button class="tab" data-tab="go-export">Export Release</button>
+                <button class="tab" data-tab="go-empty-return">Empty Return</button>
+                <button class="tab" data-tab="go-sales">Container Sales</button>
+            </div>
+
+            <!-- Import Gate-Out -->
+            <form class="tab-content active" id="go-import">
+                <div class="form-grid">
+                    <div class="field">
+                        <label>Agent Name</label>
+                        <input type="text" placeholder="Transire">
+                    </div>
+                    <div class="field">
+                        <label>Driver Name</label>
+                        <input type="text" placeholder="Driver Name">
+                    </div>
+                    <div class="field">
+                        <label>Truck No</label>
+                        <input type="text" placeholder="TRK-102">
+                    </div>
+                    <div class="field">
+                        <label>Driver Phone</label>
+                        <input type="tel" placeholder="0803xxxxxxx">
+                    </div>
+                    <div class="field with-btn">
+                        <label>Container Number</label>
+                        <input type="text" placeholder="TCLU 4589213">
+                        <button type="button" class="capture">Capture</button>
+                    </div>
+                    <div class="field">
+                        <label>Container Size</label>
+                        <select>
+                            <option>20FT</option>
+                            <option>40FT</option>
+                            <option>40FT HC</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Shipping Line</label>
+                        <input type="text" placeholder="Maersk, CMA CGM">
+                    </div>
+                    <div class="field with-btn">
+                        <label>Gate-Out Release Officer</label>
+                        <input type="text" placeholder="Officer Name">
+                        <button type="button" class="capture">Capture</button>
+                    </div>
+                </div>
+                <button class="submit-btn">Submit Import Gate-Out</button>
+            </form>
+
+            <!-- Empty Gate-Out -->
+            <form class="tab-content" id="go-empty">
+                <div class="form-grid">
+                    <div class="field">
+                        <label>Port Destination</label>
+                        <select>
+                            <option>Apapa</option>
+                            <option>Tincan</option>
+                            <option>Lekki</option>
+                        </select>
+                    </div>
+                    <div class="field with-btn">
+                        <label>Container Number</label>
+                        <input type="text">
+                        <button type="button" class="capture">Capture</button>
+                    </div>
+                    <div class="field">
+                        <label>Container Size</label>
+                        <select>
+                            <option>20FT</option>
+                            <option>40FT</option>
+                            <option>40FT HC</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Driver Name</label>
+                        <input type="text">
+                    </div>
+                    <div class="field">
+                        <label>Truck Number</label>
+                        <input type="text">
+                    </div>
+                    <div class="field">
+                        <label>Driver Phone</label>
+                        <input type="tel">
+                    </div>
+                    <div class="field">
+                        <label>Shipping Line</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <button class="submit-btn">Submit Empty Gate-Out</button>
+            </form>
+
+            <!-- Export Release -->
+            <form class="tab-content" id="go-export">
+                <div class="form-grid">
+                    <div class="field with-btn">
+                        <label>Container Number</label>
+                        <input type="text">
+                        <button type="button" class="capture">Capture</button>
+                    </div>
+                    <div class="field">
+                        <label>Container Size</label>
+                        <select>
+                            <option>20FT</option>
+                            <option>40FT</option>
+                            <option>40FT HC</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Agent Name / No</label>
+                        <input type="text">
+                    </div>
+                    <div class="field">
+                        <label>Driver Name</label>
+                        <input type="text">
+                    </div>
+                    <div class="field">
+                        <label>Truck Number</label>
+                        <input type="text">
+                    </div>
+                    <div class="field">
+                        <label>Shipping Line</label>
+                        <input type="text">
+                    </div>
+                    <div class="field">
+                        <label>Exporter Company Name</label>
+                        <input type="text">
+                    </div>
+                    <div class="field">
+                        <label>Booking Number</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <button class="submit-btn">Submit Export Release</button>
+            </form>
+
+            <!-- Empty Return -->
+            <form class="tab-content" id="go-empty-return">
+                <div class="form-grid">
+                    <div class="field with-btn">
+                        <label>Container Number</label>
+                        <input type="text">
+                        <button type="button" class="capture">Capture</button>
+                    </div>
+                    <div class="field">
+                        <label>Container Size</label>
+                        <select>
+                            <option>20FT</option>
+                            <option>40FT</option>
+                            <option>40FT HC</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Agent Name / No</label>
+                        <input type="text">
+                    </div>
+                    <div class="field">
+                        <label>Driver Name</label>
+                        <input type="text">
+                    </div>
+                    <div class="field">
+                        <label>Truck Number</label>
+                        <input type="text">
+                    </div>
+                    <div class="field">
+                        <label>Shipping Line</label>
+                        <input type="text">
+                    </div>
+                    <div class="field">
+                        <label>Trucking Company Name</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <button class="submit-btn">Submit Empty Return</button>
+            </form>
+
+            <!-- Container Sales -->
+            <form class="tab-content" id="go-sales">
+                <div class="form-grid">
+                    <div class="field">
+                        <label>Agent Name / No / ID</label>
+                        <input type="text">
+                    </div>
+                    <div class="field">
+                        <label>Company Name</label>
+                        <input type="text">
+                    </div>
+                    <div class="field">
+                        <label>Container Size</label>
+                        <select>
+                            <option>20FT</option>
+                            <option>40FT</option>
+                            <option>40FT HC</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Shipping Line</label>
+                        <input type="text">
+                    </div>
+                    <div class="field">
+                        <label>Driver Name</label>
+                        <input type="text">
+                    </div>
+                    <div class="field">
+                        <label>Driver Phone</label>
+                        <input type="tel">
+                    </div>
+                    <div class="field">
+                        <label>Driver ID</label>
+                        <input type="text">
+                    </div>
+                    <div class="field with-btn">
+                        <label>Container Number</label>
+                        <input type="text">
+                        <button type="button" class="capture">Capture</button>
+                    </div>
+                </div>
+                <button class="submit-btn">Submit Container Sales</button>
+            </form>
+        </section>
+
+        <section id="manage" class="page">
+            <h3>Manage</h3>
+
+            <div class="tabs">
+                <button class="tab active" data-tab="manage-profile">Profile</button>
+                <button class="tab" data-tab="manage-users">Users</button>
+                <button class="tab" data-tab="manage-info">Important Info</button>
+            </div>
+
+            <!-- Profile Settings -->
+            <div id="manage-profile" class="tab-content active">
+                <div class="form-grid">
+
+                    <div class="field">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="John Doe">
+                    </div>
+
+                    <div class="field">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="john@example.com">
+                    </div>
+
+                    <div class="field">
+                        <label>Phone Number</label>
+                        <input type="tel" placeholder="0803xxxxxxx">
+                    </div>
+
+                    <div class="field">
+                        <label>Role</label>
+                        <select>
+                            <option>Admin</option>
+                            <option>Gate Officer</option>
+                            <option>Supervisor</option>
+                        </select>
+                    </div>
+
+                    <div class="field with-btn">
+                        <label>Profile Photo</label>
+                        <input type="file">
+                        <button type="button" class="capture">Upload</button>
+                    </div>
+
+                </div>
+
+                <button class="primary-btn">Save Profile</button>
+            </div>
+
+            <!-- User Management -->
+            <div id="manage-users" class="tab-content">
+                <div class="form-grid">
+
+                    <div class="field">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="New user name">
+                    </div>
+
+                    <div class="field">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="user@email.com">
+                    </div>
+
+                    <div class="field">
+                        <label>Role</label>
+                        <select>
+                            <option>Gate Officer</option>
+                            <option>Supervisor</option>
+                            <option>Admin</option>
+                        </select>
+                    </div>
+
+                    <div class="field with-btn">
+                        <label>Staff ID</label>
+                        <input type="text" placeholder="EMP-102">
+                        <button type="button" class="capture">Scan</button>
+                    </div>
+
+                </div>
+
+                <button class="primary-btn">Add User</button>
+
+                <h5>Recent Users</h5>
+
+                <div class="recent_card-boxes">
+                    <article class="recent-box">
+                        <strong>Ibrahim Musa</strong>
+                        <small>Gate Officer</small>
+                    </article>
+
+                    <article class="recent-box">
+                        <strong>Sola Ade</strong>
+                        <small>Supervisor</small>
+                    </article>
+                </div>
+            </div>
+
+            <!-- Important Info -->
+            <div id="manage-info" class="tab-content">
+                <h4>Gate Operations Overview</h4>
+
+                <div class="recent_card-boxes">
+                    <article class="recent-box">
+                        <strong>Gate In</strong>
+                        <small>
+                            Containers entering the terminal/yard. This could be imported cargo coming in,
+                            or empty containers returned from ports into the yard.
+                        </small>
+                    </article>
+
+                    <article class="recent-box">
+                        <strong>Gate Out</strong>
+                        <small>
+                            Containers leaving the terminal/yard. This includes export releases, empty returns,
+                            container sales, or imports being delivered out.
+                        </small>
+                    </article>
+                </div>
+
+                <h4>Gate In – Operation Types</h4>
+
+                <div class="table-wrap">
+                    <table class="info-table">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>What It Means</th>
+                                <th>What Happens at Gate</th>
+                                <th>Key Details Captured</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Import</td>
+                                <td>Loaded container arriving into the yard from port or vessel discharge.</td>
+                                <td>Truck is checked in, container is inspected, documents are verified.</td>
+                                <td>Agent, Driver, Truck No, Container No, Size, Shipping Line, Receiver</td>
+                            </tr>
+                            <tr>
+                                <td>Empty</td>
+                                <td>Empty container coming into the yard from port.</td>
+                                <td>Truck enters yard, container condition is confirmed.</td>
+                                <td>Port, Container No, Size, Driver, Truck No, Shipping Line</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4>Gate Out – Operation Types</h4>
+
+                <div class="table-wrap">
+                    <table class="info-table">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>What It Means</th>
+                                <th>What Happens at Gate</th>
+                                <th>Key Details Captured</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Import</td>
+                                <td>Loaded container leaving yard for final delivery.</td>
+                                <td>Release is confirmed, container is verified before exit.</td>
+                                <td>Agent, Driver, Truck No, Container No, Size, Shipping Line, Release Officer</td>
+                            </tr>
+                            <tr>
+                                <td>Empty</td>
+                                <td>Empty container leaving yard back to port.</td>
+                                <td>Container is checked out, port destination is confirmed.</td>
+                                <td>Port Destination, Container No, Size, Driver, Truck No, Shipping Line</td>
+                            </tr>
+                            <tr>
+                                <td>Export Release</td>
+                                <td>Export container leaving yard for vessel loading.</td>
+                                <td>Booking is validated, exporter details are confirmed.</td>
+                                <td>Booking No, Exporter, Agent, Driver, Truck No, Container No, Size</td>
+                            </tr>
+                            <tr>
+                                <td>Empty Return</td>
+                                <td>Empty container returned to shipping line.</td>
+                                <td>Container is released and condition logged.</td>
+                                <td>Container No, Size, Agent, Driver, Truck No, Shipping Line</td>
+                            </tr>
+                            <tr>
+                                <td>Container Sales</td>
+                                <td>Sold container leaving the yard permanently.</td>
+                                <td>Buyer identity is confirmed, container ownership is transferred.</td>
+                                <td>Agent, Company, Container No, Size, Driver, ID Card, Shipping Line</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4>Common Events at the Gate</h4>
+
+                <div class="recent_card-boxes">
+                    <article class="recent-box">
+                        <strong>Document Verification</strong>
+                        <small>Agent papers, booking numbers, release documents are checked.</small>
+                    </article>
+
+                    <article class="recent-box">
+                        <strong>Container Inspection</strong>
+                        <small>Physical condition, container number, seal, and size are verified.</small>
+                    </article>
+
+                    <article class="recent-box">
+                        <strong>Driver & Truck Validation</strong>
+                        <small>Driver identity and truck number are confirmed before entry or exit.</small>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        &copy; 2026 Terminus Simple. All rights reserved.
+    </footer>
+</body>
+
+<script src="./assets/js/script.js"></script>
+
+</html>
