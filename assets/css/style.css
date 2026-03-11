@@ -474,8 +474,8 @@ main {
   right: 14px;
   top: 50%;
   transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: var(--radius);
   display: flex;
   align-items: center;
@@ -491,8 +491,8 @@ main {
   background: var(--accent-light);
 }
 .card-icon svg {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
 }
 
 .section-header {
