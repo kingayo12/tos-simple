@@ -4,317 +4,384 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terminus Simple</title>
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Terminus — Container Terminal Management</title>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
 
+    <!-- ═══════ NAV ═══════ -->
     <nav>
-        <div class="logo">
-            <img src="../assets/imgs/logo.png" alt="">
-        </div>
-
-        <div class="theme">
-            .
-        </div>
-        <div class="user_profile">
-            <div class="profile">
-                <img src="./assets/imgs/profile/avatar.png" alt="">
+        <div class="nav-left">
+            <div class="logo">
+                <img src="../assets/imgs/logo.png" alt="">
             </div>
-            <div class="profile_details">
-                <p class="user_name">Dewunmi Codespro </p>
-                <small class="user_role">Admin</small>
-                <button>
-                    <img src="./assets/imgs/icons/more_vert_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="">
-                </button>
+            <div class="nav-divider"></div>
+            <span class="nav-subtitle">Terminal Management</span>
+        </div>
+        <div class="nav-right">
+            <div class="nav-stat">
+                <div class="dot"></div>
+                <span>System Online</span>
+            </div>
+            <div class="nav-bell" title="Notifications">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                    <path d="M13.73 21a2 2 0 01-3.46 0" />
+                </svg>
+                <div class="bell-badge">3</div>
+            </div>
+            <div class="user-chip">
+                <div class="user-avatar">DC</div>
+                <div class="user-info">
+                    <div class="uname">Dewunmi Codespro</div>
+                    <div class="urole">Admin</div>
+                </div>
             </div>
         </div>
-
     </nav>
+
+    <!-- ═══════ SIDEBAR ═══════ -->
     <div class="side_nav">
         <ul>
-            <li><a href="#" class="active" data-page="dashboard"> <img
-                        src="./assets/imgs/icons/dashboard_2_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+            <li>
+                <a href="#" class="active" data-page="dashboard">
+                    <span class="nav-icon">
+                        <svg viewBox="0 -960 960 960">
+                            <path
+                                d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z" />
+                        </svg>
+                    </span>
                     <p>Dashboard</p>
-                </a></li>
-            <li><a href="#" data-page="report"><img
-                        src="./assets/imgs/icons/graph_5_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+                </a>
+            </li>
+            <li>
+                <a href="#" data-page="report">
+                    <span class="nav-icon">
+                        <svg viewBox="0 -960 960 960">
+                            <path d="M640-160v-280h160v280H640Zm-240 0v-640h160v640H400Zm-240 0v-440h160v440H160Z" />
+                        </svg>
+                    </span>
                     <p>Reports</p>
-                </a></li>
-            <li><a href="#" data-page="gatein"><img
-                        src="./assets/imgs/icons/login_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+                </a>
+            </li>
+            <li>
+                <a href="#" data-page="gatein">
+                    <span class="nav-icon">
+                        <svg viewBox="0 -960 960 960">
+                            <path
+                                d="M480-120v-80h280v-560H480v-80h280q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H480Zm-80-160-55-58 102-102H120v-80h327L345-622l55-58 200 200-200 200Z" />
+                        </svg>
+                    </span>
                     <p>Gate-in</p>
-                </a></li>
-            <li><a href="#" data-page="gateout"><img class="rotate-180"
-                        src="./assets/imgs/icons/login_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="">
-                    <p>
-                        Gate-out
-                    </p>
-                </a></li>
-            <li><a href="#" data-page="manage"><img
-                        src="./assets/imgs/icons/settings_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+                </a>
+            </li>
+            <li>
+                <a href="#" data-page="gateout">
+                    <span class="nav-icon">
+                        <svg viewBox="0 -960 960 960">
+                            <path
+                                d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z" />
+                        </svg>
+                    </span>
+                    <p>Gate-out</p>
+                </a>
+            </li>
+            <li>
+                <a href="#" data-page="manage">
+                    <span class="nav-icon">
+                        <svg viewBox="0 -960 960 960">
+                            <path
+                                d="M370-80q-16 0-28.5-9T325-113l-28-95q-20-8-38.5-18.5T224-250l-91 32q-15 5-29 0t-23-19L29-355q-9-14-5-29t16-24l78-57q-2-11-2.5-21T115-507q0-10 .5-20t2.5-21l-78-57q-12-9-16-24t5-29l52-107q9-14 23-19t29 0l91 32q17-13 35.5-23.5T298-765l28-95q4-17 16.5-26t28.5-9h104q16 0 28.5 9t16.5 26l28 95q20 8 38.5 18.5T621-728l91-32q15-5 29 0t23 19l52 107q9 14 5 29t-16 24l-78 57q2 11 2.5 21t.5 21q0 10-.5 20T727-442l78 57q12 9 16 24t-5 29l-52 107q-9 14-23 19t-29 0l-91-32q-17 13-35.5 23.5T547-195l-28 95q-4 17-16.5 26T474-65H370Zm52-280q58 0 99-41t41-99q0-58-41-99t-99-41q-58 0-99 41t-41 99q0 58 41 99t99 41Z" />
+                        </svg>
+                    </span>
                     <p>Manage</p>
-                </a></li>
+                </a>
+            </li>
         </ul>
     </div>
+
+    <!-- ═══════ MAIN ═══════ -->
     <main>
+
+        <!-- ══════════════ DASHBOARD ══════════════ -->
         <section id="dashboard" class="page active">
-            <div class="title">
-                <p><i class=" small">Welcome!</p></i> <span class="user_name">Dewunmi Codespro</span>
-            </div>
-
-
-            <div class=" cards">
-                <div class="card">
-                    <h3>Total Vehicles</h3>
-                    <p>150</p>
-                </div>
-                <div class="card">
-                    <h3>Vehicles In</h3>
-                    <p>80</p>
-                </div>
-                <div class="card">
-                    <h3>Vehicles Out</h3>
-                    <p>70</p>
+            <div class="dash-header">
+                <div class="greeting">Welcome back,</div>
+                <div class="username">Dewunmi Codespro</div>
+                <div class="date-badge">
+                    <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor">
+                        <path
+                            d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2zm0 16H5V9h14v11z" />
+                    </svg>
+                    <span id="today-date"></span>
                 </div>
             </div>
 
-            <div class="recent_card">
-                <header>
-                    <h5>Recent activities</h5>
-                    <a href=""></a>
-                    <p>See all</p>
-                </header>
-
-
-                <div class="recent_card-boxes">
-                    <!-- Gate-in: Import -->
-                    <a class="activity gate-in">
-                        <span class="tag in">Gate-in</span>
-                        <span class="type import">Import</span>
-                        <div class="details">
-                            <p class="title">Container IN – TCLU 4589213</p>
-                            <small>From Apapa Port • 08:42 AM</small>
-                        </div>
-                    </a>
-
-                    <!-- Gate-out: Import -->
-                    <a class="activity gate-out">
-                        <span class="tag out">Gate-out</span>
-                        <span class="type import">Import</span>
-                        <div class="details">
-                            <p class="title">Container OUT – MSKU 7732019</p>
-                            <small>To Ikeja Warehouse • 09:15 AM</small>
-                        </div>
-                    </a>
-
-                    <!-- Gate-in: Empty -->
-                    <a class="activity gate-in">
-                        <span class="tag in">Gate-in</span>
-                        <span class="type empty">Empty</span>
-                        <div class="details">
-                            <p class="title">Empty Container IN – CMAU 1098832</p>
-                            <small>Truck #TRK-118 • 10:03 AM</small>
-                        </div>
-                    </a>
-
-                    <!-- Gate-out: Export Release -->
-                    <a class="activity gate-out">
-                        <span class="tag out">Gate-out</span>
-                        <span class="type export">Export Release</span>
-                        <div class="details">
-                            <p class="title">Container OUT – TGHU 6641201</p>
-                            <small>Released for Export • 11:27 AM</small>
-                        </div>
-                    </a>
-
-                    <!-- Gate-out: Empty Return -->
-                    <a class="activity gate-out">
-                        <span class="tag out">Gate-out</span>
-                        <span class="type empty">Empty Return</span>
-                        <div class="details">
-                            <p class="title">Empty Container OUT – MSKU 2209811</p>
-                            <small>Returned to Depot • 12:10 PM</small>
-                        </div>
-                    </a>
-
-                    <!-- Gate-out: Container Sales -->
-                    <a class="activity gate-out">
-                        <span class="tag out">Gate-out</span>
-                        <span class="type sales">Container Sales</span>
-                        <div class="details">
-                            <p class="title">Container SOLD – TLLU 9007721</p>
-                            <small>Customer Pickup • 01:05 PM</small>
-                        </div>
-                    </a>
+            <div class="cards">
+                <div class="card">
+                    <div class="card-label">Total Movements</div>
+                    <div class="card-value" id="stat-total">0</div>
+                    <div class="card-sub">All gate activity</div>
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2">
+                            <rect x="2" y="7" width="20" height="14" rx="2" />
+                            <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-label">Vehicles In</div>
+                    <div class="card-value" id="stat-in">0</div>
+                    <div class="card-sub">Gate-in total</div>
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2">
+                            <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M13 12H3" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-label">Vehicles Out</div>
+                    <div class="card-value" id="stat-out">0</div>
+                    <div class="card-sub">Gate-out total</div>
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" />
+                        </svg>
+                    </div>
                 </div>
             </div>
 
+            <div class="section-header">
+                <span class="section-title">Recent Activity</span>
+                <a href="#" class="section-link" onclick="document.querySelector('[data-page=report]').click()">See all
+                    →</a>
+            </div>
+            <div class="activity-feed" id="activity-feed">
+                <div class="empty-state">
+                    <p>Loading activity...</p>
+                </div>
+            </div>
         </section>
 
-        <section id="gatein" class="page">
-            <div class="tabs">
-                <button class="tab active" data-tab="import">Import</button>
-                <button class="tab" data-tab="empty">Empty</button>
+        <!-- ══════════════ REPORTS ══════════════ -->
+        <section id="report" class="page">
+            <div class="page-header">
+                <h2>Reports</h2>
+                <p>View and export gate activity records</p>
             </div>
 
-            <!-- Import Form -->
-            <form class="tab-content active" id="import">
-                <div class="form-grid">
-                    <div class="field">
-                        <label>Agent Name</label>
-                        <input type="text" placeholder="Transire">
-                    </div>
+            <div class="tabs" id="report-main-tabs">
+                <button class="tab active" data-tab="report-gatein">Gate In</button>
+                <button class="tab" data-tab="report-gateout">Gate Out</button>
+            </div>
 
-                    <div class="field">
-                        <label>Driver Name</label>
-                        <input type="text" placeholder="Driver name">
-                    </div>
-
-                    <div class="field">
-                        <label>Truck No</label>
-                        <input type="text" placeholder="TRK-102">
-                    </div>
-
-                    <div class="field">
-                        <label>Driver Phone</label>
-                        <input type="tel" placeholder="0803xxxxxxx">
-                    </div>
-
-                    <div class="field with-btn">
-                        <label>Container Number</label>
-                        <input type="text" placeholder="TCLU 4589213">
-                        <button type="button" class="capture">Capture</button>
-                    </div>
-
-                    <div class="field">
-                        <label>Container Size</label>
-                        <select>
-                            <option>20FT</option>
-                            <option>40FT</option>
-                            <option>40FT HC</option>
-                        </select>
-                    </div>
-
-                    <div class="field">
-                        <label>Shipping Company</label>
-                        <input type="text" placeholder="Maersk, CMA CGM">
-                    </div>
-
-                    <div class="field with-btn">
-                        <label>Gate-in Receiver</label>
-                        <input type="text" placeholder="Officer Name">
-                        <button type="button" class="capture">Capture</button>
-                    </div>
+            <!-- GATE IN REPORT -->
+            <div id="report-gatein" class="tab-content active">
+                <div class="tabs sub-tabs" id="gi-subtabs">
+                    <button class="tab report-sub-tab active" data-report="report-gi-import">Import</button>
+                    <button class="tab report-sub-tab" data-report="report-gi-empty">Empty</button>
                 </div>
-
-                <button class="submit-btn">Submit Import Gate-In</button>
-            </form>
-
-            <!-- Empty Form -->
-            <form class="tab-content" id="empty">
-                <div class="form-grid">
-                    <div class="field">
-                        <label>Port Incoming</label>
-                        <select>
-                            <option>Apapa</option>
-                            <option>Tincan</option>
-                            <option>Lekki</option>
-                        </select>
+                <div class="report-filters">
+                    <div class="filter-group">
+                        <label>From</label>
+                        <input type="date" id="gi-filter-from">
                     </div>
-
-                    <div class="field with-btn">
-                        <label>Container Number</label>
-                        <input type="text">
-                        <button type="button" class="capture">Capture</button>
+                    <div class="filter-group">
+                        <label>To</label>
+                        <input type="date" id="gi-filter-to">
                     </div>
-
-                    <div class="field">
-                        <label>Container Size</label>
-                        <select>
-                            <option>20FT</option>
-                            <option>40FT</option>
-                            <option>40FT HC</option>
-                        </select>
+                    <div class="filter-group">
+                        <label>Container No.</label>
+                        <input type="text" id="gi-filter-container" placeholder="e.g. TCLU 4589213">
                     </div>
-
-                    <div class="field">
-                        <label>Driver Name</label>
-                        <input type="text">
+                    <div class="filter-group">
+                        <label>Truck No.</label>
+                        <input type="text" id="gi-filter-truck" placeholder="e.g. TRK-102">
                     </div>
-
-                    <div class="field">
-                        <label>Truck Number</label>
-                        <input type="text">
-                    </div>
-
-                    <div class="field">
-                        <label>Driver Phone</label>
-                        <input type="tel">
-                    </div>
-
-                    <div class="field">
+                    <div class="filter-group">
                         <label>Shipping Line</label>
-                        <input type="text">
+                        <input type="text" id="gi-filter-shipping" placeholder="e.g. Maersk">
                     </div>
+                    <button class="search-btn" id="btn-filter-gi">Search</button>
+                    <button class="search-btn" id="btn-export-csv" style="background:var(--success)">Export CSV</button>
                 </div>
+                <div id="active-report-table"></div>
+            </div>
 
-                <button class="submit-btn">Submit Empty Gate-In</button>
-            </form>
-
-            <section id="recent-entries">
-                <h5>Recent Gate-in Entries</h5>
-                <div class="recent-list">
-
-                    <!-- Gate-in Import -->
-                    <div class="recent-item">
-                        <div class="top">
-                            <span>Gate-in (Import)</span>
-                            <span>08:42 AM</span>
-                        </div>
-                        <small>
-                            Container TCLU 4589213 • Driver: John Doe • Truck: TRK-102 • Shipping: Maersk
-                        </small>
-                    </div>
-
-                    <div class="recent-item">
-                        <div class="top">
-                            <span>Gate-in (Import)</span>
-                            <span>09:15 AM</span>
-                        </div>
-                        <small>
-                            Container MSKU 7732019 • Driver: Mike Oladele • Truck: TRK-089 • Shipping: CMA CGM
-                        </small>
-                    </div>
-
-                    <!-- Gate-in Empty -->
-                    <div class="recent-item">
-                        <div class="top">
-                            <span>Gate-in (Empty)</span>
-                            <span>10:03 AM</span>
-                        </div>
-                        <small>
-                            Container CMAU 1098832 • Driver: Tunde Balogun • Truck: TRK-118 • Port: Apapa
-                        </small>
-                    </div>
-
-                    <!-- More entries -->
-                    <div class="recent-item">
-                        <div class="top">
-                            <span>Gate-in (Empty)</span>
-                            <span>11:27 AM</span>
-                        </div>
-                        <small>
-                            Container TGHU 6641201 • Driver: Chuka Nwosu • Truck: TRK-220 • Port: Tincan
-                        </small>
-                    </div>
-
+            <!-- GATE OUT REPORT -->
+            <div id="report-gateout" class="tab-content">
+                <div class="tabs sub-tabs">
+                    <button class="tab report-sub-tab active" data-report="report-go-import">Import</button>
+                    <button class="tab report-sub-tab" data-report="report-go-empty">Empty</button>
+                    <button class="tab report-sub-tab" data-report="report-go-export">Export</button>
+                    <button class="tab report-sub-tab" data-report="report-go-return">Empty Return</button>
+                    <button class="tab report-sub-tab" data-report="report-go-sales">Sales</button>
                 </div>
-            </section>
+                <div class="report-filters">
+                    <div class="filter-group">
+                        <label>From</label>
+                        <input type="date" id="go-filter-from">
+                    </div>
+                    <div class="filter-group">
+                        <label>To</label>
+                        <input type="date" id="go-filter-to">
+                    </div>
+                    <div class="filter-group">
+                        <label>Container No.</label>
+                        <input type="text" id="go-filter-container" placeholder="e.g. TCLU 4589213">
+                    </div>
+                    <div class="filter-group">
+                        <label>Truck No.</label>
+                        <input type="text" id="go-filter-truck" placeholder="e.g. TRK-102">
+                    </div>
+                    <div class="filter-group">
+                        <label>Shipping Line</label>
+                        <input type="text" id="go-filter-shipping" placeholder="e.g. Maersk">
+                    </div>
+                    <button class="search-btn" id="btn-filter-go">Search</button>
+                </div>
+                <div id="active-go-report-table"></div>
+            </div>
         </section>
 
+        <!-- ══════════════ GATE-IN ══════════════ -->
+        <section id="gatein" class="page">
+            <div class="page-header">
+                <h2>Gate-In</h2>
+                <p>Record containers entering the terminal</p>
+            </div>
+
+            <div class="tabs">
+                <button class="tab active" data-tab="gi-import">Import</button>
+                <button class="tab" data-tab="gi-empty">Empty</button>
+            </div>
+
+            <!-- Import Gate-In -->
+            <div class="tab-content active" id="gi-import">
+                <form class="form-card" id="form-gi-import" novalidate>
+                    <div class="form-section-title">Import Container — Gate In</div>
+                    <div class="form-grid">
+                        <div class="field">
+                            <label>Agent Name</label>
+                            <input type="text" name="agentName" placeholder="Transire Ltd">
+                        </div>
+                        <div class="field">
+                            <label>Driver Name</label>
+                            <input type="text" name="driverName" placeholder="Driver name">
+                        </div>
+                        <div class="field">
+                            <label>Truck No.</label>
+                            <input type="text" name="truckNo" placeholder="TRK-102" required>
+                        </div>
+                        <div class="field">
+                            <label>Driver Phone</label>
+                            <input type="tel" name="driverPhone" placeholder="0803xxxxxxx">
+                        </div>
+                        <div class="field with-btn">
+                            <label>Container Number *</label>
+                            <input type="text" name="containerNumber" placeholder="TCLU 4589213" required>
+                            <button type="button" class="capture-btn">Capture</button>
+                        </div>
+                        <div class="field">
+                            <label>Container Size</label>
+                            <select name="containerSize">
+                                <option>20FT</option>
+                                <option>40FT</option>
+                                <option>40FT HC</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>Shipping Company</label>
+                            <input type="text" name="shippingCompany" placeholder="Maersk, CMA CGM…">
+                        </div>
+                        <div class="field with-btn">
+                            <label>Gate-in Receiver</label>
+                            <input type="text" name="receiver" placeholder="Officer Name">
+                            <button type="button" class="capture-btn">Capture</button>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                        </svg>
+                        Submit Import Gate-In
+                    </button>
+                </form>
+            </div>
+
+            <!-- Empty Gate-In -->
+            <div class="tab-content" id="gi-empty">
+                <form class="form-card" id="form-gi-empty" novalidate>
+                    <div class="form-section-title">Empty Container — Gate In</div>
+                    <div class="form-grid">
+                        <div class="field">
+                            <label>Port Incoming</label>
+                            <select name="portIncoming">
+                                <option>Apapa</option>
+                                <option>Tincan</option>
+                                <option>Lekki</option>
+                            </select>
+                        </div>
+                        <div class="field with-btn">
+                            <label>Container Number *</label>
+                            <input type="text" name="containerNumber" required>
+                            <button type="button" class="capture-btn">Capture</button>
+                        </div>
+                        <div class="field">
+                            <label>Container Size</label>
+                            <select name="containerSize">
+                                <option>20FT</option>
+                                <option>40FT</option>
+                                <option>40FT HC</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>Driver Name</label>
+                            <input type="text" name="driverName">
+                        </div>
+                        <div class="field">
+                            <label>Truck Number</label>
+                            <input type="text" name="truckNumber">
+                        </div>
+                        <div class="field">
+                            <label>Driver Phone</label>
+                            <input type="tel" name="driverPhone">
+                        </div>
+                        <div class="field">
+                            <label>Shipping Line</label>
+                            <input type="text" name="shippingLine">
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                        </svg>
+                        Submit Empty Gate-In
+                    </button>
+                </form>
+            </div>
+
+            <!-- Recent Entries -->
+            <div class="recent-entries-section">
+                <div class="section-header">
+                    <span class="section-title">Recent Gate-In Entries</span>
+                </div>
+                <div class="recent-list" id="recent-entries-list">
+                    <div class="empty-state">
+                        <p>No recent entries</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════════ GATE-OUT ══════════════ -->
         <section id="gateout" class="page">
+            <div class="page-header">
+                <h2>Gate-Out</h2>
+                <p>Record containers leaving the terminal</p>
+            </div>
+
             <div class="tabs">
                 <button class="tab active" data-tab="go-import">Import</button>
                 <button class="tab" data-tab="go-empty">Empty</button>
@@ -324,443 +391,449 @@
             </div>
 
             <!-- Import Gate-Out -->
-            <form class="tab-content active" id="go-import">
-                <div class="form-grid">
-                    <div class="field">
-                        <label>Agent Name</label>
-                        <input type="text" placeholder="Transire">
+            <div class="tab-content active" id="go-import">
+                <form class="form-card" id="form-go-import" novalidate>
+                    <div class="form-section-title">Import Container — Gate Out</div>
+                    <div class="form-grid">
+                        <div class="field"><label>Agent Name</label><input type="text" name="agentName"
+                                placeholder="Transire Ltd">
+                        </div>
+                        <div class="field"><label>Driver Name</label><input type="text" name="driverName"
+                                placeholder="Driver Name">
+                        </div>
+                        <div class="field"><label>Truck No.</label><input type="text" name="truckNo"
+                                placeholder="TRK-102"></div>
+                        <div class="field"><label>Driver Phone</label><input type="tel" name="driverPhone"
+                                placeholder="0803xxxxxxx"></div>
+                        <div class="field with-btn">
+                            <label>Container Number *</label>
+                            <input type="text" name="containerNumber" placeholder="TCLU 4589213" required>
+                            <button type="button" class="capture-btn">Capture</button>
+                        </div>
+                        <div class="field"><label>Container Size</label><select name="containerSize">
+                                <option>20FT</option>
+                                <option>40FT</option>
+                                <option>40FT HC</option>
+                            </select></div>
+                        <div class="field"><label>Shipping Line</label><input type="text" name="shippingLine"
+                                placeholder="Maersk, CMA CGM…"></div>
+                        <div class="field with-btn">
+                            <label>Release Officer</label>
+                            <input type="text" name="releaseOfficer" placeholder="Officer Name">
+                            <button type="button" class="capture-btn">Capture</button>
+                        </div>
                     </div>
-                    <div class="field">
-                        <label>Driver Name</label>
-                        <input type="text" placeholder="Driver Name">
-                    </div>
-                    <div class="field">
-                        <label>Truck No</label>
-                        <input type="text" placeholder="TRK-102">
-                    </div>
-                    <div class="field">
-                        <label>Driver Phone</label>
-                        <input type="tel" placeholder="0803xxxxxxx">
-                    </div>
-                    <div class="field with-btn">
-                        <label>Container Number</label>
-                        <input type="text" placeholder="TCLU 4589213">
-                        <button type="button" class="capture">Capture</button>
-                    </div>
-                    <div class="field">
-                        <label>Container Size</label>
-                        <select>
-                            <option>20FT</option>
-                            <option>40FT</option>
-                            <option>40FT HC</option>
-                        </select>
-                    </div>
-                    <div class="field">
-                        <label>Shipping Line</label>
-                        <input type="text" placeholder="Maersk, CMA CGM">
-                    </div>
-                    <div class="field with-btn">
-                        <label>Gate-Out Release Officer</label>
-                        <input type="text" placeholder="Officer Name">
-                        <button type="button" class="capture">Capture</button>
-                    </div>
-                </div>
-                <button class="submit-btn">Submit Import Gate-Out</button>
-            </form>
+                    <button type="submit" class="submit-btn"><svg viewBox="0 0 24 24" width="16" height="16"
+                            fill="currentColor">
+                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                        </svg>Submit Import Gate-Out</button>
+                </form>
+            </div>
 
             <!-- Empty Gate-Out -->
-            <form class="tab-content" id="go-empty">
-                <div class="form-grid">
-                    <div class="field">
-                        <label>Port Destination</label>
-                        <select>
-                            <option>Apapa</option>
-                            <option>Tincan</option>
-                            <option>Lekki</option>
-                        </select>
+            <div class="tab-content" id="go-empty">
+                <form class="form-card" id="form-go-empty" novalidate>
+                    <div class="form-section-title">Empty Container — Gate Out</div>
+                    <div class="form-grid">
+                        <div class="field"><label>Port Destination</label><select name="portDestination">
+                                <option>Apapa</option>
+                                <option>Tincan</option>
+                                <option>Lekki</option>
+                            </select></div>
+                        <div class="field with-btn"><label>Container Number *</label><input type="text"
+                                name="containerNumber" required><button type="button"
+                                class="capture-btn">Capture</button></div>
+                        <div class="field"><label>Container Size</label><select name="containerSize">
+                                <option>20FT</option>
+                                <option>40FT</option>
+                                <option>40FT HC</option>
+                            </select></div>
+                        <div class="field"><label>Driver Name</label><input type="text" name="driverName"></div>
+                        <div class="field"><label>Truck Number</label><input type="text" name="truckNumber"></div>
+                        <div class="field"><label>Driver Phone</label><input type="tel" name="driverPhone"></div>
+                        <div class="field"><label>Shipping Line</label><input type="text" name="shippingLine"></div>
                     </div>
-                    <div class="field with-btn">
-                        <label>Container Number</label>
-                        <input type="text">
-                        <button type="button" class="capture">Capture</button>
-                    </div>
-                    <div class="field">
-                        <label>Container Size</label>
-                        <select>
-                            <option>20FT</option>
-                            <option>40FT</option>
-                            <option>40FT HC</option>
-                        </select>
-                    </div>
-                    <div class="field">
-                        <label>Driver Name</label>
-                        <input type="text">
-                    </div>
-                    <div class="field">
-                        <label>Truck Number</label>
-                        <input type="text">
-                    </div>
-                    <div class="field">
-                        <label>Driver Phone</label>
-                        <input type="tel">
-                    </div>
-                    <div class="field">
-                        <label>Shipping Line</label>
-                        <input type="text">
-                    </div>
-                </div>
-                <button class="submit-btn">Submit Empty Gate-Out</button>
-            </form>
+                    <button type="submit" class="submit-btn"><svg viewBox="0 0 24 24" width="16" height="16"
+                            fill="currentColor">
+                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                        </svg>Submit Empty Gate-Out</button>
+                </form>
+            </div>
 
             <!-- Export Release -->
-            <form class="tab-content" id="go-export">
-                <div class="form-grid">
-                    <div class="field with-btn">
-                        <label>Container Number</label>
-                        <input type="text">
-                        <button type="button" class="capture">Capture</button>
+            <div class="tab-content" id="go-export">
+                <form class="form-card" id="form-go-export" novalidate>
+                    <div class="form-section-title">Export Release — Gate Out</div>
+                    <div class="form-grid">
+                        <div class="field with-btn"><label>Container Number *</label><input type="text"
+                                name="containerNumber" required><button type="button"
+                                class="capture-btn">Capture</button></div>
+                        <div class="field"><label>Container Size</label><select name="containerSize">
+                                <option>20FT</option>
+                                <option>40FT</option>
+                                <option>40FT HC</option>
+                            </select></div>
+                        <div class="field"><label>Agent Name / No.</label><input type="text" name="agent"></div>
+                        <div class="field"><label>Driver Name</label><input type="text" name="driverName"></div>
+                        <div class="field"><label>Truck Number</label><input type="text" name="truckNumber"></div>
+                        <div class="field"><label>Shipping Line</label><input type="text" name="shippingLine"></div>
+                        <div class="field"><label>Exporter Company</label><input type="text" name="exporter"></div>
+                        <div class="field"><label>Booking Number</label><input type="text" name="bookingNumber"></div>
                     </div>
-                    <div class="field">
-                        <label>Container Size</label>
-                        <select>
-                            <option>20FT</option>
-                            <option>40FT</option>
-                            <option>40FT HC</option>
-                        </select>
-                    </div>
-                    <div class="field">
-                        <label>Agent Name / No</label>
-                        <input type="text">
-                    </div>
-                    <div class="field">
-                        <label>Driver Name</label>
-                        <input type="text">
-                    </div>
-                    <div class="field">
-                        <label>Truck Number</label>
-                        <input type="text">
-                    </div>
-                    <div class="field">
-                        <label>Shipping Line</label>
-                        <input type="text">
-                    </div>
-                    <div class="field">
-                        <label>Exporter Company Name</label>
-                        <input type="text">
-                    </div>
-                    <div class="field">
-                        <label>Booking Number</label>
-                        <input type="text">
-                    </div>
-                </div>
-                <button class="submit-btn">Submit Export Release</button>
-            </form>
+                    <button type="submit" class="submit-btn"><svg viewBox="0 0 24 24" width="16" height="16"
+                            fill="currentColor">
+                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                        </svg>Submit Export Release</button>
+                </form>
+            </div>
 
             <!-- Empty Return -->
-            <form class="tab-content" id="go-empty-return">
-                <div class="form-grid">
-                    <div class="field with-btn">
-                        <label>Container Number</label>
-                        <input type="text">
-                        <button type="button" class="capture">Capture</button>
+            <div class="tab-content" id="go-empty-return">
+                <form class="form-card" id="form-go-empty-return" novalidate>
+                    <div class="form-section-title">Empty Return — Gate Out</div>
+                    <div class="form-grid">
+                        <div class="field with-btn"><label>Container Number *</label><input type="text"
+                                name="containerNumber" required><button type="button"
+                                class="capture-btn">Capture</button></div>
+                        <div class="field"><label>Container Size</label><select name="containerSize">
+                                <option>20FT</option>
+                                <option>40FT</option>
+                                <option>40FT HC</option>
+                            </select></div>
+                        <div class="field"><label>Agent Name / No.</label><input type="text" name="agent"></div>
+                        <div class="field"><label>Driver Name</label><input type="text" name="driverName"></div>
+                        <div class="field"><label>Truck Number</label><input type="text" name="truckNumber"></div>
+                        <div class="field"><label>Shipping Line</label><input type="text" name="shippingLine"></div>
+                        <div class="field"><label>Trucking Company</label><input type="text" name="truckingCompany">
+                        </div>
                     </div>
-                    <div class="field">
-                        <label>Container Size</label>
-                        <select>
-                            <option>20FT</option>
-                            <option>40FT</option>
-                            <option>40FT HC</option>
-                        </select>
-                    </div>
-                    <div class="field">
-                        <label>Agent Name / No</label>
-                        <input type="text">
-                    </div>
-                    <div class="field">
-                        <label>Driver Name</label>
-                        <input type="text">
-                    </div>
-                    <div class="field">
-                        <label>Truck Number</label>
-                        <input type="text">
-                    </div>
-                    <div class="field">
-                        <label>Shipping Line</label>
-                        <input type="text">
-                    </div>
-                    <div class="field">
-                        <label>Trucking Company Name</label>
-                        <input type="text">
-                    </div>
-                </div>
-                <button class="submit-btn">Submit Empty Return</button>
-            </form>
+                    <button type="submit" class="submit-btn"><svg viewBox="0 0 24 24" width="16" height="16"
+                            fill="currentColor">
+                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                        </svg>Submit Empty Return</button>
+                </form>
+            </div>
 
             <!-- Container Sales -->
-            <form class="tab-content" id="go-sales">
-                <div class="form-grid">
-                    <div class="field">
-                        <label>Agent Name / No / ID</label>
-                        <input type="text">
+            <div class="tab-content" id="go-sales">
+                <form class="form-card" id="form-go-sales" novalidate>
+                    <div class="form-section-title">Container Sales — Gate Out</div>
+                    <div class="form-grid">
+                        <div class="field"><label>Agent Name / ID</label><input type="text" name="agent"></div>
+                        <div class="field"><label>Company Name</label><input type="text" name="company"></div>
+                        <div class="field"><label>Container Size</label><select name="containerSize">
+                                <option>20FT</option>
+                                <option>40FT</option>
+                                <option>40FT HC</option>
+                            </select></div>
+                        <div class="field"><label>Shipping Line</label><input type="text" name="shippingLine"></div>
+                        <div class="field"><label>Driver Name</label><input type="text" name="driverName"></div>
+                        <div class="field"><label>Driver Phone</label><input type="tel" name="driverPhone"></div>
+                        <div class="field"><label>Driver ID</label><input type="text" name="driverId"></div>
+                        <div class="field with-btn"><label>Container Number *</label><input type="text"
+                                name="containerNumber" required><button type="button"
+                                class="capture-btn">Capture</button></div>
                     </div>
-                    <div class="field">
-                        <label>Company Name</label>
-                        <input type="text">
-                    </div>
-                    <div class="field">
-                        <label>Container Size</label>
-                        <select>
-                            <option>20FT</option>
-                            <option>40FT</option>
-                            <option>40FT HC</option>
-                        </select>
-                    </div>
-                    <div class="field">
-                        <label>Shipping Line</label>
-                        <input type="text">
-                    </div>
-                    <div class="field">
-                        <label>Driver Name</label>
-                        <input type="text">
-                    </div>
-                    <div class="field">
-                        <label>Driver Phone</label>
-                        <input type="tel">
-                    </div>
-                    <div class="field">
-                        <label>Driver ID</label>
-                        <input type="text">
-                    </div>
-                    <div class="field with-btn">
-                        <label>Container Number</label>
-                        <input type="text">
-                        <button type="button" class="capture">Capture</button>
-                    </div>
-                </div>
-                <button class="submit-btn">Submit Container Sales</button>
-            </form>
+                    <button type="submit" class="submit-btn"><svg viewBox="0 0 24 24" width="16" height="16"
+                            fill="currentColor">
+                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                        </svg>Submit Container Sale</button>
+                </form>
+            </div>
         </section>
 
+        <!-- ══════════════ MANAGE ══════════════ -->
         <section id="manage" class="page">
-            <h3>Manage</h3>
+            <div class="page-header">
+                <h2>Manage</h2>
+                <p>Configure profile, users, and system information</p>
+            </div>
 
             <div class="tabs">
                 <button class="tab active" data-tab="manage-profile">Profile</button>
                 <button class="tab" data-tab="manage-users">Users</button>
-                <button class="tab" data-tab="manage-info">Important Info</button>
+                <button class="tab" data-tab="manage-info">Info</button>
             </div>
 
-            <!-- Profile Settings -->
+            <!-- Profile -->
             <div id="manage-profile" class="tab-content active">
-                <div class="form-grid">
-
-                    <div class="field">
-                        <label>Full Name</label>
-                        <input type="text" placeholder="John Doe">
+                <div class="form-card">
+                    <div class="form-section-title">Profile Settings</div>
+                    <div class="form-grid">
+                        <div class="field"><label>Full Name</label><input type="text" placeholder="Dewunmi Codespro"
+                                value="Dewunmi Codespro"></div>
+                        <div class="field"><label>Email Address</label><input type="email"
+                                placeholder="user@example.com"></div>
+                        <div class="field"><label>Phone Number</label><input type="tel" placeholder="0803xxxxxxx"></div>
+                        <div class="field"><label>Role</label><select>
+                                <option>Admin</option>
+                                <option>Gate Officer</option>
+                                <option>Supervisor</option>
+                            </select></div>
                     </div>
-
-                    <div class="field">
-                        <label>Email Address</label>
-                        <input type="email" placeholder="john@example.com">
-                    </div>
-
-                    <div class="field">
-                        <label>Phone Number</label>
-                        <input type="tel" placeholder="0803xxxxxxx">
-                    </div>
-
-                    <div class="field">
-                        <label>Role</label>
-                        <select>
-                            <option>Admin</option>
-                            <option>Gate Officer</option>
-                            <option>Supervisor</option>
-                        </select>
-                    </div>
-
-                    <div class="field with-btn">
-                        <label>Profile Photo</label>
-                        <input type="file">
-                        <button type="button" class="capture">Upload</button>
-                    </div>
-
+                    <button class="submit-btn" id="btn-save-profile">Save Profile</button>
                 </div>
-
-                <button class="primary-btn">Save Profile</button>
             </div>
 
-            <!-- User Management -->
+            <!-- Users -->
             <div id="manage-users" class="tab-content">
-                <div class="form-grid">
-
-                    <div class="field">
-                        <label>Full Name</label>
-                        <input type="text" placeholder="New user name">
+                <div class="form-card">
+                    <div class="form-section-title">Add New User</div>
+                    <div class="form-grid">
+                        <div class="field"><label>Full Name</label><input type="text" id="new-user-name"
+                                placeholder="New user name"></div>
+                        <div class="field"><label>Email</label><input type="email" placeholder="user@email.com"></div>
+                        <div class="field"><label>Role</label><select id="new-user-role">
+                                <option>Gate Officer</option>
+                                <option>Supervisor</option>
+                                <option>Admin</option>
+                            </select></div>
+                        <div class="field with-btn"><label>Staff ID</label><input type="text"
+                                placeholder="EMP-102"><button type="button" class="capture-btn">Scan</button></div>
                     </div>
-
-                    <div class="field">
-                        <label>Email Address</label>
-                        <input type="email" placeholder="user@email.com">
-                    </div>
-
-                    <div class="field">
-                        <label>Role</label>
-                        <select>
-                            <option>Gate Officer</option>
-                            <option>Supervisor</option>
-                            <option>Admin</option>
-                        </select>
-                    </div>
-
-                    <div class="field with-btn">
-                        <label>Staff ID</label>
-                        <input type="text" placeholder="EMP-102">
-                        <button type="button" class="capture">Scan</button>
-                    </div>
-
+                    <button class="submit-btn" id="btn-add-user">Add User</button>
                 </div>
-
-                <button class="primary-btn">Add User</button>
-
-                <h5>Recent Users</h5>
-
-                <div class="recent_card-boxes">
-                    <article class="recent-box">
-                        <strong>Ibrahim Musa</strong>
-                        <small>Gate Officer</small>
-                    </article>
-
-                    <article class="recent-box">
-                        <strong>Sola Ade</strong>
-                        <small>Supervisor</small>
-                    </article>
+                <div class="section-header" style="margin-top:20px">
+                    <span class="section-title">Current Users</span>
+                </div>
+                <div class="user-cards" id="users-list">
+                    <div class="user-card">
+                        <div class="user-card-avatar">IM</div>
+                        <div class="user-card-info">
+                            <div class="uname">Ibrahim Musa</div>
+                            <div class="urole">Gate Officer</div>
+                        </div>
+                    </div>
+                    <div class="user-card">
+                        <div class="user-card-avatar">SA</div>
+                        <div class="user-card-info">
+                            <div class="uname">Sola Ade</div>
+                            <div class="urole">Supervisor</div>
+                        </div>
+                    </div>
+                    <div class="user-card">
+                        <div class="user-card-avatar">DC</div>
+                        <div class="user-card-info">
+                            <div class="uname">Dewunmi Codespro</div>
+                            <div class="urole">Admin</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Important Info -->
+            <!-- Info -->
             <div id="manage-info" class="tab-content">
-                <h4>Gate Operations Overview</h4>
-
-                <div class="recent_card-boxes">
-                    <article class="recent-box">
-                        <strong>Gate In</strong>
-                        <small>
-                            Containers entering the terminal/yard. This could be imported cargo coming in,
-                            or empty containers returned from ports into the yard.
-                        </small>
-                    </article>
-
-                    <article class="recent-box">
-                        <strong>Gate Out</strong>
-                        <small>
-                            Containers leaving the terminal/yard. This includes export releases, empty returns,
-                            container sales, or imports being delivered out.
-                        </small>
-                    </article>
+                <div class="info-section">
+                    <h4>Gate Operations Overview</h4>
+                    <div class="info-cards">
+                        <div class="info-card"><strong>Gate In</strong><small>Containers entering the terminal/yard —
+                                imported cargo
+                                arriving, or empty containers returned from ports.</small></div>
+                        <div class="info-card"><strong>Gate Out</strong><small>Containers leaving the terminal/yard —
+                                export
+                                releases, empty returns, container sales, or import deliveries.</small></div>
+                    </div>
                 </div>
-
-                <h4>Gate In – Operation Types</h4>
-
-                <div class="table-wrap">
-                    <table class="info-table">
-                        <thead>
-                            <tr>
-                                <th>Type</th>
-                                <th>What It Means</th>
-                                <th>What Happens at Gate</th>
-                                <th>Key Details Captured</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Import</td>
-                                <td>Loaded container arriving into the yard from port or vessel discharge.</td>
-                                <td>Truck is checked in, container is inspected, documents are verified.</td>
-                                <td>Agent, Driver, Truck No, Container No, Size, Shipping Line, Receiver</td>
-                            </tr>
-                            <tr>
-                                <td>Empty</td>
-                                <td>Empty container coming into the yard from port.</td>
-                                <td>Truck enters yard, container condition is confirmed.</td>
-                                <td>Port, Container No, Size, Driver, Truck No, Shipping Line</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="info-section">
+                    <h4>Gate In — Operation Types</h4>
+                    <div class="table-wrap">
+                        <table class="info-table">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>What It Means</th>
+                                    <th>What Happens at Gate</th>
+                                    <th>Key Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="badge import">Import</span></td>
+                                    <td>Loaded container arriving into yard from port/vessel.</td>
+                                    <td>Truck checked in, container inspected, documents verified.</td>
+                                    <td>Agent, Driver, Truck, Container, Size, Shipping, Receiver</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge empty">Empty</span></td>
+                                    <td>Empty container arriving from port into yard.</td>
+                                    <td>Truck enters yard, container condition confirmed.</td>
+                                    <td>Port, Container, Size, Driver, Truck, Shipping</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-
-                <h4>Gate Out – Operation Types</h4>
-
-                <div class="table-wrap">
-                    <table class="info-table">
-                        <thead>
-                            <tr>
-                                <th>Type</th>
-                                <th>What It Means</th>
-                                <th>What Happens at Gate</th>
-                                <th>Key Details Captured</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Import</td>
-                                <td>Loaded container leaving yard for final delivery.</td>
-                                <td>Release is confirmed, container is verified before exit.</td>
-                                <td>Agent, Driver, Truck No, Container No, Size, Shipping Line, Release Officer</td>
-                            </tr>
-                            <tr>
-                                <td>Empty</td>
-                                <td>Empty container leaving yard back to port.</td>
-                                <td>Container is checked out, port destination is confirmed.</td>
-                                <td>Port Destination, Container No, Size, Driver, Truck No, Shipping Line</td>
-                            </tr>
-                            <tr>
-                                <td>Export Release</td>
-                                <td>Export container leaving yard for vessel loading.</td>
-                                <td>Booking is validated, exporter details are confirmed.</td>
-                                <td>Booking No, Exporter, Agent, Driver, Truck No, Container No, Size</td>
-                            </tr>
-                            <tr>
-                                <td>Empty Return</td>
-                                <td>Empty container returned to shipping line.</td>
-                                <td>Container is released and condition logged.</td>
-                                <td>Container No, Size, Agent, Driver, Truck No, Shipping Line</td>
-                            </tr>
-                            <tr>
-                                <td>Container Sales</td>
-                                <td>Sold container leaving the yard permanently.</td>
-                                <td>Buyer identity is confirmed, container ownership is transferred.</td>
-                                <td>Agent, Company, Container No, Size, Driver, ID Card, Shipping Line</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <h4>Common Events at the Gate</h4>
-
-                <div class="recent_card-boxes">
-                    <article class="recent-box">
-                        <strong>Document Verification</strong>
-                        <small>Agent papers, booking numbers, release documents are checked.</small>
-                    </article>
-
-                    <article class="recent-box">
-                        <strong>Container Inspection</strong>
-                        <small>Physical condition, container number, seal, and size are verified.</small>
-                    </article>
-
-                    <article class="recent-box">
-                        <strong>Driver & Truck Validation</strong>
-                        <small>Driver identity and truck number are confirmed before entry or exit.</small>
-                    </article>
+                <div class="info-section">
+                    <h4>Gate Out — Operation Types</h4>
+                    <div class="table-wrap">
+                        <table class="info-table">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>What It Means</th>
+                                    <th>What Happens at Gate</th>
+                                    <th>Key Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="badge import">Import</span></td>
+                                    <td>Loaded container leaving yard for final delivery.</td>
+                                    <td>Release confirmed, container verified before exit.</td>
+                                    <td>Agent, Driver, Truck, Container, Shipping, Release Officer</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge empty">Empty</span></td>
+                                    <td>Empty container leaving yard back to port.</td>
+                                    <td>Container checked out, port destination confirmed.</td>
+                                    <td>Port Dest., Container, Size, Driver, Truck, Shipping</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge export">Export</span></td>
+                                    <td>Export container leaving for vessel loading.</td>
+                                    <td>Booking validated, exporter details confirmed.</td>
+                                    <td>Booking, Exporter, Agent, Driver, Truck, Container</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge return">Empty Return</span></td>
+                                    <td>Empty container returned to shipping line.</td>
+                                    <td>Container released and condition logged.</td>
+                                    <td>Container, Size, Agent, Driver, Truck, Shipping Co.</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge sales">Sales</span></td>
+                                    <td>Sold container leaving yard permanently.</td>
+                                    <td>Buyer identity confirmed, ownership transferred.</td>
+                                    <td>Agent, Company, Container, Size, Driver ID, Shipping</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>
-    </main>
-    <footer>
-        &copy; 2026 Terminus Simple. All rights reserved.
-    </footer>
-</body>
 
-<script src="./assets/js/script.js"></script>
+    </main>
+
+    <!-- Toast container -->
+    <div id="toast-container"></div>
+
+    <!-- ═══════ CAPTURE MODAL ═══════ -->
+    <div id="capture-modal" class="capture-modal" role="dialog" aria-modal="true">
+        <div class="capture-modal-inner">
+            <div class="capture-modal-header">
+                <div class="capture-modal-title">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z" />
+                        <circle cx="12" cy="13" r="4" />
+                    </svg>
+                    <span id="capture-modal-label">Capture</span>
+                </div>
+                <button class="capture-modal-close" id="capture-close">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <div class="capture-tabs">
+                <button class="capture-tab active" data-ctab="camera">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z" />
+                        <circle cx="12" cy="13" r="4" />
+                    </svg>
+                    Camera
+                </button>
+                <button class="capture-tab" data-ctab="manual">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
+                        <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+                    </svg>
+                    Manual Entry
+                </button>
+            </div>
+            <!-- Camera Panel -->
+            <div class="capture-panel active" id="capture-panel-camera">
+                <div class="camera-viewport">
+                    <video id="capture-video" autoplay playsinline muted></video>
+                    <canvas id="capture-canvas" style="display:none"></canvas>
+                    <div class="camera-overlay">
+                        <div class="scan-frame">
+                            <div class="scan-corner tl"></div>
+                            <div class="scan-corner tr"></div>
+                            <div class="scan-corner bl"></div>
+                            <div class="scan-corner br"></div>
+                            <div class="scan-line"></div>
+                        </div>
+                    </div>
+                    <div class="camera-status" id="camera-status">
+                        <div class="camera-status-dot"></div>
+                        <span id="camera-status-text">Starting camera…</span>
+                    </div>
+                </div>
+                <div class="camera-preview" id="camera-preview" style="display:none">
+                    <img id="capture-preview-img" src="" alt="Captured">
+                </div>
+                <div class="camera-controls">
+                    <button class="cam-btn secondary" id="btn-switch-cam" title="Switch camera">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M1 4v6h6" />
+                            <path d="M23 20v-6h-6" />
+                            <path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15" />
+                        </svg>
+                    </button>
+                    <button class="cam-btn primary large" id="btn-capture-snap">
+                        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="8" />
+                            <circle cx="12" cy="12" r="3" fill="currentColor" stroke="none" />
+                        </svg>
+                    </button>
+                    <button class="cam-btn secondary" id="btn-retake" style="display:none" title="Retake">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="1 4 1 10 7 10" />
+                            <path d="M3.51 15a9 9 0 102.13-9.36L1 10" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="extracted-wrap" id="extracted-wrap" style="display:none">
+                    <label class="extract-label">Detected text — tap to select</label>
+                    <div class="extracted-chips" id="extracted-chips"></div>
+                </div>
+                <div class="cam-confirm-row" id="cam-confirm-row" style="display:none">
+                    <input type="text" id="cam-confirm-input" class="manual-input"
+                        placeholder="Edit before confirming…">
+                    <button class="cam-btn primary full" id="btn-cam-confirm">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                        </svg>
+                        Use This Value
+                    </button>
+                </div>
+            </div>
+            <!-- Manual Entry Panel -->
+            <div class="capture-panel" id="capture-panel-manual">
+                <div class="manual-entry-wrap">
+                    <label class="extract-label" id="manual-entry-label">Enter value</label>
+                    <input type="text" id="manual-entry-input" class="manual-input" placeholder="Type or paste here…"
+                        autocomplete="off" spellcheck="false">
+                    <p class="manual-hint">Type the container number, officer name, or any value to fill the field.</p>
+                </div>
+                <button class="cam-btn primary full" id="btn-manual-confirm">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                        <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                    </svg>
+                    Confirm &amp; Fill
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="capture-backdrop" class="capture-backdrop"></div>
+
+    <script src="assets/js/script.js"></script>
+</body>
 
 </html>

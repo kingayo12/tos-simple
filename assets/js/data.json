@@ -1,0 +1,194 @@
+{
+  "gatein": {
+    "import": [
+      {
+        "agentName": "Transire Ltd",
+        "driverName": "John Doe",
+        "truckNo": "TRK-102",
+        "driverPhone": "08031234567",
+        "containerNumber": "TCLU 4589213",
+        "containerSize": "20FT",
+        "shippingCompany": "Maersk",
+        "receiver": "Emeka Obi",
+        "time": "08:42 AM",
+        "date": "2026-03-10"
+      },
+      {
+        "agentName": "Nexus Shipping",
+        "driverName": "Mike Oladele",
+        "truckNo": "TRK-089",
+        "driverPhone": "08057891234",
+        "containerNumber": "MSKU 7732019",
+        "containerSize": "40FT",
+        "shippingCompany": "CMA CGM",
+        "receiver": "Fatima Bello",
+        "time": "09:15 AM",
+        "date": "2026-03-10"
+      },
+      {
+        "agentName": "Prime Logistics",
+        "driverName": "Segun Adeyemi",
+        "truckNo": "TRK-204",
+        "driverPhone": "07012345678",
+        "containerNumber": "HLXU 9923001",
+        "containerSize": "40FT HC",
+        "shippingCompany": "MSC",
+        "receiver": "Chinedu Eze",
+        "time": "10:30 AM",
+        "date": "2026-03-10"
+      },
+      {
+        "agentName": "Transire Ltd",
+        "driverName": "Bola Tinubu",
+        "truckNo": "TRK-311",
+        "driverPhone": "09087654321",
+        "containerNumber": "FSCU 3341122",
+        "containerSize": "20FT",
+        "shippingCompany": "Maersk",
+        "receiver": "Grace Nweke",
+        "time": "11:05 AM",
+        "date": "2026-03-11"
+      },
+      {
+        "agentName": "SwiftPort Agency",
+        "driverName": "Yusuf Abdullahi",
+        "truckNo": "TRK-415",
+        "driverPhone": "08123456789",
+        "containerNumber": "OOLU 5512309",
+        "containerSize": "40FT",
+        "shippingCompany": "COSCO",
+        "receiver": "Amaka Okonkwo",
+        "time": "01:22 PM",
+        "date": "2026-03-11"
+      }
+    ],
+    "empty": [
+      {
+        "portIncoming": "Apapa",
+        "containerNumber": "CMAU 1098832",
+        "containerSize": "20FT",
+        "driverName": "Tunde Balogun",
+        "truckNumber": "TRK-118",
+        "driverPhone": "08099887766",
+        "shippingLine": "MSC",
+        "time": "10:03 AM",
+        "date": "2026-03-10"
+      },
+      {
+        "portIncoming": "Tincan",
+        "containerNumber": "TGHU 6641201",
+        "containerSize": "40FT",
+        "driverName": "Chuka Nwosu",
+        "truckNumber": "TRK-220",
+        "driverPhone": "07033221100",
+        "shippingLine": "CMA CGM",
+        "time": "11:27 AM",
+        "date": "2026-03-10"
+      },
+      {
+        "portIncoming": "Lekki",
+        "containerNumber": "GESU 4400123",
+        "containerSize": "40FT HC",
+        "driverName": "Ade Williams",
+        "truckNumber": "TRK-301",
+        "driverPhone": "08154321678",
+        "shippingLine": "Hapag-Lloyd",
+        "time": "02:45 PM",
+        "date": "2026-03-11"
+      }
+    ]
+  },
+  "gateout": {
+    "import": [
+      {
+        "agentName": "Transire Ltd",
+        "driverName": "Emeka Johnson",
+        "truckNo": "TRK-102",
+        "driverPhone": "08031234567",
+        "containerNumber": "TCLU 4589213",
+        "containerSize": "20FT",
+        "shippingLine": "Maersk",
+        "releaseOfficer": "Sola Ade",
+        "time": "02:10 PM",
+        "date": "2026-03-10"
+      },
+      {
+        "agentName": "Prime Logistics",
+        "driverName": "Funmi Okafor",
+        "truckNo": "TRK-199",
+        "driverPhone": "07098765432",
+        "containerNumber": "MSKU 7732019",
+        "containerSize": "40FT",
+        "shippingLine": "CMA CGM",
+        "releaseOfficer": "Ibrahim Musa",
+        "time": "03:30 PM",
+        "date": "2026-03-10"
+      }
+    ],
+    "empty": [
+      {
+        "portDestination": "Apapa",
+        "containerNumber": "MSKU 2209811",
+        "containerSize": "20FT",
+        "driverName": "Biodun Martins",
+        "truckNumber": "TRK-150",
+        "driverPhone": "08077665544",
+        "shippingLine": "MSC",
+        "time": "12:10 PM",
+        "date": "2026-03-10"
+      },
+      {
+        "portDestination": "Tincan",
+        "containerNumber": "CMAU 3301245",
+        "containerSize": "40FT",
+        "driverName": "Ola Adebisi",
+        "truckNumber": "TRK-208",
+        "driverPhone": "09011223344",
+        "shippingLine": "Maersk",
+        "time": "01:45 PM",
+        "date": "2026-03-11"
+      }
+    ],
+    "export": [
+      {
+        "containerNumber": "TGHU 6641201",
+        "containerSize": "40FT HC",
+        "agent": "Export Masters Ltd",
+        "driverName": "Dele Fashola",
+        "truckNumber": "TRK-320",
+        "shippingLine": "CMA CGM",
+        "exporter": "Nigeria Exports Co.",
+        "bookingNumber": "BKG-20260311-001",
+        "time": "11:27 AM",
+        "date": "2026-03-11"
+      }
+    ],
+    "emptyReturn": [
+      {
+        "containerNumber": "HLXU 1122334",
+        "containerSize": "20FT",
+        "agent": "ReturnPro Agency",
+        "driverName": "Kayode Aborisade",
+        "truckNumber": "TRK-450",
+        "shippingLine": "Hapag-Lloyd",
+        "truckingCompany": "Kolade Trucking Ltd",
+        "time": "09:00 AM",
+        "date": "2026-03-11"
+      }
+    ],
+    "sales": [
+      {
+        "agent": "ContainerSales Ltd",
+        "company": "TechBuild Nigeria",
+        "containerNumber": "TLLU 9007721",
+        "containerSize": "20FT",
+        "driverName": "Samuel Obi",
+        "driverPhone": "08166778899",
+        "driverId": "DRV-2024-112",
+        "shippingLine": "Maersk",
+        "time": "01:05 PM",
+        "date": "2026-03-11"
+      }
+    ]
+  }
+}
