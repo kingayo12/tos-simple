@@ -1,0 +1,443 @@
+/* ═══════════════════════════════════════════
+   TERMINUS — DataTables Theme Override (Updated)
+   Based on custom color palette
+   Drop this file AFTER datatables.min.css
+   ═══════════════════════════════════════════ */
+
+/* ── Outer wrapper ── */
+.dt-outer-wrap {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ── Toolbar (search + buttons) ── */
+.dt-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0 14px;
+  flex-wrap: wrap;
+}
+
+.dt-toolbar-left,
+.dt-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ── DataTables search input ── */
+.dataTables_filter label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--grey-600);
+  white-space: nowrap;
+}
+
+.dataTables_filter input {
+  background: var(--grey-100);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius);
+  color: var(--grey-800);
+  font-size: 12px;
+  padding: 7px 12px;
+  width: 220px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.dataTables_filter input:focus {
+  border-color: var(--primary);
+}
+
+.dataTables_filter input::placeholder {
+  color: var(--grey-600);
+}
+
+/* ── Page-length selector ── */
+.dataTables_length label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--grey-600);
+  white-space: nowrap;
+}
+
+.dataTables_length select {
+  background: var(--grey-100);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius);
+  color: var(--grey-800);
+  font-size: 12px;
+  padding: 6px 28px 6px 10px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23707070'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 6px center;
+  background-size: 18px;
+  outline: none;
+}
+
+/* ── Export Buttons ── */
+.dt-buttons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.dt-button {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  font-size: 11.5px;
+  font-weight: 500;
+  border-style: none !important;
+  border: 1px solid transparent !important;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    transform 0.1s !important;
+  line-height: 1;
+  white-space: nowrap;
+  background: var(--primary-light) !important;
+}
+
+.dt-button:active {
+  transform: scale(0.97);
+}
+.dataTables_scrollFootInner,
+.dataTables_scrollHeadInner {
+  width: 100% !important;
+}
+
+/* Button Colors */
+.dt-btn-copy {
+  background: var(--primary-light);
+  border-color: var(--grey-200);
+  color: var(--grey-800);
+}
+.dt-btn-csv {
+  background: var(--success);
+  border-color: var(--success);
+  color: var(--white);
+}
+.dt-btn-excel {
+  background: var(--primary);
+  border-color: var(--primary-dark);
+  color: var(--white);
+}
+.dt-btn-pdf {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
+}
+.dt-btn-print {
+  background: var(--purple);
+  border-color: var(--purple);
+  color: var(--white);
+}
+.dt-btn-colvis {
+  background: var(--grey-50);
+  border-color: var(--grey-200);
+  color: var(--grey-600);
+}
+
+/* Hover states */
+.dt-btn-copy:hover {
+  background: var(--grey-100);
+  color: var(--grey-800);
+  border-color: var(--primary);
+}
+.dt-btn-csv:hover {
+  background: var(--success-light);
+  color: var(--success);
+  border-color: var(--success);
+}
+.dt-btn-excel:hover {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  border-color: var(--primary);
+}
+.dt-btn-pdf:hover {
+  background: var(--accent-light);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.dt-btn-print:hover {
+  background: var(--purple-light);
+  color: var(--purple);
+  border-color: var(--purple);
+}
+.dt-btn-colvis:hover {
+  background: var(--grey-100);
+  color: var(--grey-800);
+}
+
+/* ── Column-visibility dropdown ── */
+div.dt-button-collection {
+  background: var(--grey-50) !important;
+  border: 1px solid var(--grey-200) !important;
+  border-radius: var(--radius) !important;
+  padding: 6px !important;
+  box-shadow: var(--shadow-md) !important;
+  z-index: 9999 !important;
+}
+
+div.dt-button-collection button.dt-button {
+  background: transparent !important;
+  border: none !important;
+  color: var(--grey-800) !important;
+  font-size: 12px;
+  padding: 7px 14px;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+div.dt-button-collection button.dt-button:hover {
+  background: var(--grey-100) !important;
+}
+
+div.dt-button-collection button.dt-button.active {
+  background: var(--primary-light) !important;
+  color: var(--primary) !important;
+}
+
+/* ── Table ── */
+.dt-enabled.dataTable {
+  width: 100% !important;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 12.5px;
+  background: var(--white);
+}
+
+.dt-enabled thead th {
+  background: var(--grey-100);
+  color: var(--grey-600);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 11px 14px;
+  border-bottom: 2px solid var(--grey-200);
+  white-space: nowrap;
+  user-select: none;
+  transition: background 0.15s;
+}
+
+.dt-enabled thead th:hover {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+/* Sort arrows */
+.dt-enabled thead th.sorting::after,
+.dt-enabled thead th.sorting_asc::after,
+.dt-enabled thead th.sorting_desc::after {
+  content: "";
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  opacity: 0.35;
+  border-top: 5px solid currentColor;
+}
+
+.dt-enabled thead th.sorting_asc::after {
+  border-top: none;
+  border-bottom: 5px solid var(--primary);
+  opacity: 1;
+}
+
+.dt-enabled thead th.sorting_desc::after {
+  border-top: 5px solid var(--primary);
+  opacity: 1;
+}
+
+/* Body rows */
+.dt-enabled tbody tr {
+  border-bottom: 1px solid var(--grey-200);
+  transition: background 0.12s;
+}
+
+.dt-enabled tbody tr:hover td {
+  background: var(--primary-light);
+}
+
+.dt-enabled tbody tr:nth-child(even) td {
+  background: var(--grey-50);
+}
+
+.dt-enabled tbody td {
+  padding: 10px 14px;
+  color: var(--grey-800);
+  white-space: nowrap;
+}
+
+.dt-enabled tbody td.container-no {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.dt-enabled tbody td.time-col,
+.dt-enabled tbody td.date-col {
+  font-size: 11.5px;
+  color: var(--grey-600);
+}
+
+/* Footer search */
+.dt-col-search {
+  width: 100%;
+  background: var(--grey-100);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius);
+  color: var(--grey-800);
+  font-size: 11px;
+  padding: 5px 8px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.dt-col-search:focus {
+  border-color: var(--primary);
+}
+
+/* Body scroll */
+.dt-body {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 560px;
+}
+
+/* Scrollbar */
+.dt-body::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.dt-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+.dt-body::-webkit-scrollbar-thumb {
+  background: var(--grey-200);
+  border-radius: 3px;
+}
+.dt-body::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Footer info + pagination */
+.dt-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 4px 6px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.dataTables_info {
+  font-size: 11.5px;
+  color: var(--grey-600);
+}
+
+.dataTables_paginate {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dataTables_paginate .paginate_button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  height: 30px;
+  padding: 0 8px;
+  border-radius: var(--radius);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--grey-600) !important;
+  transition: all 0.15s;
+}
+
+.dataTables_paginate .paginate_button:hover:not(.disabled) {
+  background: var(--grey-50) !important;
+  border-color: var(--grey-200) !important;
+  color: var(--grey-800) !important;
+}
+
+.dataTables_paginate .paginate_button.current,
+.dataTables_paginate .paginate_button.current:hover {
+  background: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: var(--white) !important;
+}
+
+.dataTables_paginate .paginate_button.disabled,
+.dataTables_paginate .paginate_button.disabled:hover {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Processing & Empty states */
+.dataTables_processing {
+  background: var(--grey-50) !important;
+  border: 1px solid var(--grey-200) !important;
+  border-radius: var(--radius) !important;
+  color: var(--grey-800) !important;
+  font-size: 12px !important;
+  padding: 12px 24px !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.dataTables_empty {
+  padding: 40px 20px !important;
+  text-align: center !important;
+  color: var(--grey-600) !important;
+  font-size: 13px !important;
+}
+
+/* Highlighted search matches */
+.dt-enabled tbody mark {
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .dt-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .dataTables_filter input {
+    width: 160px;
+  }
+  .dt-btn {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+  .dt-buttons {
+    gap: 4px;
+  }
+}

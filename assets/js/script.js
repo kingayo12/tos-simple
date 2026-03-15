@@ -6,20 +6,27 @@ const DB = {
   gateout: { import: [], empty: [], export: [], emptyReturn: [], sales: [] },
 };
 
-// Load seed data
+// ═══════════════════════════════════════
+// DATATABLE REGISTRY — tracks all active DT instances
+// ═══════════════════════════════════════
+const DTRegistry = {};
+
+// ═══════════════════════════════════════
+// LOAD SEED DATA
+// ═══════════════════════════════════════
 async function initData() {
   try {
     const res = await fetch("assets/js/data.json");
     const json = await res.json();
-    DB.gatein.import = json.gatein.import || [];
-    DB.gatein.empty = json.gatein.empty || [];
-    DB.gateout.import = json.gateout.import || [];
-    DB.gateout.empty = json.gateout.empty || [];
-    DB.gateout.export = json.gateout.export || [];
-    DB.gateout.emptyReturn = json.gateout.emptyReturn || [];
-    DB.gateout.sales = json.gateout.sales || [];
+    DB.gatein.import = json.gatein?.import || [];
+    DB.gatein.empty = json.gatein?.empty || [];
+    DB.gateout.import = json.gateout?.import || [];
+    DB.gateout.empty = json.gateout?.empty || [];
+    DB.gateout.export = json.gateout?.export || [];
+    DB.gateout.emptyReturn = json.gateout?.emptyReturn || [];
+    DB.gateout.sales = json.gateout?.sales || [];
   } catch (e) {
-    console.warn("Could not load data.json, using empty store.");
+    console.warn("Could not load data.json — using empty store.");
   }
   updateDashboard();
 }
@@ -37,7 +44,7 @@ navLinks.forEach((link) => {
     link.classList.add("active");
     const pageId = link.dataset.page;
     pages.forEach((p) => p.classList.remove("active"));
-    document.getElementById(pageId).classList.add("active");
+    document.getElementById(pageId)?.classList.add("active");
   });
 });
 
@@ -58,6 +65,15 @@ document.querySelectorAll(".tabs").forEach((tabGroup) => {
       const content =
         document.getElementById(contentId) || container.querySelector(`[id="${contentId}"]`);
       if (content) content.classList.add("active");
+
+      // Adjust any DataTable inside the newly visible tab
+      setTimeout(() => {
+        Object.values(DTRegistry).forEach((dt) => {
+          try {
+            dt.columns.adjust().draw(false);
+          } catch (_) {}
+        });
+      }, 50);
     });
   });
 });
@@ -71,7 +87,11 @@ function showToast(msg, type = "success") {
   toast.className = `toast ${type}`;
   toast.innerHTML = `
     <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-      ${type === "success" ? '<path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>' : '<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>'}
+      ${
+        type === "success"
+          ? '<path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>'
+          : '<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>'
+      }
     </svg>
     ${msg}`;
   container.appendChild(toast);
@@ -105,8 +125,6 @@ function updateDashboard() {
 
 function renderRecentActivities() {
   const feed = document.getElementById("activity-feed");
-
-  // Collect all with metadata
   const all = [
     ...DB.gatein.import.map((r) => ({
       dir: "in",
@@ -180,8 +198,7 @@ function renderRecentActivities() {
         <span class="badge ${a.type}">${a.type}</span>
       </div>
       <div class="activity-time">${a.time}</div>
-    </div>
-  `,
+    </div>`,
     )
     .join("");
 }
@@ -205,7 +222,6 @@ document.getElementById("form-gi-import").addEventListener("submit", (e) => {
     time: now.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
     date: now.toISOString().split("T")[0],
   };
-
   if (!entry.containerNumber || !entry.truckNo) {
     showToast("Container No. and Truck No. are required", "error");
     return;
@@ -214,6 +230,7 @@ document.getElementById("form-gi-import").addEventListener("submit", (e) => {
   form.reset();
   updateDashboard();
   refreshRecentEntries();
+  renderReport(activeReportType);
   showToast(`Import Gate-In recorded: ${entry.containerNumber}`);
 });
 
@@ -240,6 +257,7 @@ document.getElementById("form-gi-empty").addEventListener("submit", (e) => {
   form.reset();
   updateDashboard();
   refreshRecentEntries();
+  renderReport(activeReportType);
   showToast(`Empty Gate-In recorded: ${entry.containerNumber}`);
 });
 
@@ -268,6 +286,7 @@ function bindGateOutForm(formId, storeKey, fields, successMsg) {
     DB.gateout[storeKey].push(entry);
     form.reset();
     updateDashboard();
+    renderReport(activeReportType);
     showToast(`${successMsg}: ${entry.containerNumber}`);
   });
 }
@@ -370,7 +389,6 @@ function refreshRecentEntries() {
     list.innerHTML = `<div class="empty-state"><p>No recent entries</p></div>`;
     return;
   }
-
   list.innerHTML = all
     .map(
       (r) => `
@@ -386,7 +404,7 @@ function refreshRecentEntries() {
 }
 
 // ═══════════════════════════════════════
-// REPORT SYSTEM
+// REPORT CONFIGS
 // ═══════════════════════════════════════
 const reportConfigs = {
   "report-gi-import": {
@@ -399,9 +417,20 @@ const reportConfigs = {
       "containerSize",
       "shippingCompany",
       "receiver",
+      "date",
       "time",
     ],
-    headers: ["Agent", "Driver", "Truck", "Container", "Size", "Shipping", "Receiver", "Time"],
+    headers: [
+      "Agent",
+      "Driver",
+      "Truck",
+      "Container",
+      "Size",
+      "Shipping",
+      "Receiver",
+      "Date",
+      "Time",
+    ],
   },
   "report-gi-empty": {
     getData: () => DB.gatein.empty,
@@ -412,9 +441,10 @@ const reportConfigs = {
       "driverName",
       "truckNumber",
       "shippingLine",
+      "date",
       "time",
     ],
-    headers: ["Port", "Container", "Size", "Driver", "Truck", "Shipping", "Time"],
+    headers: ["Port", "Container", "Size", "Driver", "Truck", "Shipping", "Date", "Time"],
   },
   "report-go-import": {
     getData: () => DB.gateout.import,
@@ -426,6 +456,7 @@ const reportConfigs = {
       "containerSize",
       "shippingLine",
       "releaseOfficer",
+      "date",
       "time",
     ],
     headers: [
@@ -436,6 +467,7 @@ const reportConfigs = {
       "Size",
       "Shipping",
       "Release Officer",
+      "Date",
       "Time",
     ],
   },
@@ -448,9 +480,10 @@ const reportConfigs = {
       "driverName",
       "truckNumber",
       "shippingLine",
+      "date",
       "time",
     ],
-    headers: ["Port Dest.", "Container", "Size", "Driver", "Truck", "Shipping", "Time"],
+    headers: ["Port Dest.", "Container", "Size", "Driver", "Truck", "Shipping", "Date", "Time"],
   },
   "report-go-export": {
     getData: () => DB.gateout.export,
@@ -463,6 +496,7 @@ const reportConfigs = {
       "shippingLine",
       "exporter",
       "bookingNumber",
+      "date",
       "time",
     ],
     headers: [
@@ -474,6 +508,7 @@ const reportConfigs = {
       "Shipping",
       "Exporter",
       "Booking",
+      "Date",
       "Time",
     ],
   },
@@ -487,9 +522,20 @@ const reportConfigs = {
       "truckNumber",
       "shippingLine",
       "truckingCompany",
+      "date",
       "time",
     ],
-    headers: ["Container", "Size", "Agent", "Driver", "Truck", "Shipping", "Trucking Co.", "Time"],
+    headers: [
+      "Container",
+      "Size",
+      "Agent",
+      "Driver",
+      "Truck",
+      "Shipping",
+      "Trucking Co.",
+      "Date",
+      "Time",
+    ],
   },
   "report-go-sales": {
     getData: () => DB.gateout.sales,
@@ -502,6 +548,7 @@ const reportConfigs = {
       "driverPhone",
       "driverId",
       "shippingLine",
+      "date",
       "time",
     ],
     headers: [
@@ -513,23 +560,42 @@ const reportConfigs = {
       "Phone",
       "Driver ID",
       "Shipping",
+      "Date",
       "Time",
     ],
   },
 };
 
 let activeReportType = "report-gi-import";
-const PAGE_SIZE = 10;
-let currentPage = 1;
-let filteredData = [];
 
-function renderReport(type, filters = {}) {
+// ═══════════════════════════════════════
+// DATATABLES INTEGRATION
+// ═══════════════════════════════════════
+
+/**
+ * Build or rebuild a DataTable for the given report type.
+ * Supports:
+ *  - Sorting on all columns
+ *  - Search/filter (built-in DT search)
+ *  - Export buttons: Copy, CSV, Excel, PDF, Print
+ *  - Column visibility toggle
+ *  - Responsive layout
+ *  - Custom per-column filters passed via `filters` param
+ *
+ * @param {string} type       - key from reportConfigs
+ * @param {object} filters    - optional { from, to, container, truck, shipping }
+ * @param {string} [tableId]  - optional custom table id (for dynamically created tables)
+ * @param {Array}  [customData] - optional custom row data (for dynamically created tables)
+ * @param {object} [customCfg]  - optional { columns, headers } (for dynamically created tables)
+ */
+function renderReport(type, filters = {}, tableId = null, customData = null, customCfg = null) {
   activeReportType = type;
-  currentPage = 1;
-  const config = reportConfigs[type];
+
+  const config = customCfg || reportConfigs[type];
   if (!config) return;
 
-  let data = config.getData();
+  // Resolve data
+  let data = customData !== null ? customData : config.getData();
 
   // Apply filters
   if (filters.from) data = data.filter((r) => r.date >= filters.from);
@@ -547,152 +613,294 @@ function renderReport(type, filters = {}) {
       (r.shippingCompany || r.shippingLine)?.toLowerCase().includes(filters.shipping.toLowerCase()),
     );
 
-  filteredData = data;
-  renderPage();
-}
+  // Determine containing element
+  let containerId;
+  if (tableId) {
+    containerId = tableId + "_wrap";
+  } else if (type.startsWith("report-gi-")) {
+    containerId = "active-report-table";
+  } else {
+    containerId = "active-go-report-table";
+  }
 
-function renderPage() {
-  const type = activeReportType;
-  const config = reportConfigs[type];
-  const containerId = type.startsWith("report-gi-")
-    ? "active-report-table"
-    : "active-go-report-table";
   const container = document.getElementById(containerId);
   if (!container) return;
 
-  const total = filteredData.length;
-  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
-  currentPage = Math.min(currentPage, totalPages);
-  const start = (currentPage - 1) * PAGE_SIZE;
-  const pageData = filteredData.slice(start, start + PAGE_SIZE);
+  const dtId = tableId || "dt_" + type.replace(/-/g, "_");
 
-  const isContainerCol = (col) => col === "containerNumber";
-  const isTimeCol = (col) => col === "time";
-
-  if (!pageData.length) {
-    container.innerHTML = `
-      <div class="table-wrap">
-        <div class="empty-state" style="padding:40px">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-          <p>No records found</p>
-        </div>
-      </div>`;
-    return;
+  // Destroy old DataTable instance if it exists
+  if (DTRegistry[dtId]) {
+    try {
+      DTRegistry[dtId].destroy();
+    } catch (_) {}
+    delete DTRegistry[dtId];
   }
 
+  // Build table HTML
   const headerHtml = config.headers.map((h) => `<th>${h}</th>`).join("");
-  const rowsHtml = pageData
+  const rowsHtml = data
     .map(
       (row) =>
-        `<tr>${config.columns.map((col) => `<td class="${isContainerCol(col) ? "container-no" : ""} ${isTimeCol(col) ? "time-col" : ""}">${row[col] || "—"}</td>`).join("")}</tr>`,
+        `<tr>${config.columns
+          .map((col) => {
+            const val = row[col] || "";
+            const cls =
+              col === "containerNumber"
+                ? "container-no"
+                : col === "time"
+                  ? "time-col"
+                  : col === "date"
+                    ? "date-col"
+                    : "";
+            return `<td class="${cls}">${val || "—"}</td>`;
+          })
+          .join("")}</tr>`,
     )
     .join("");
 
-  const paginationHtml = Array.from(
-    { length: totalPages },
-    (_, i) =>
-      `<button class="page-btn ${i + 1 === currentPage ? "active" : ""}" onclick="goPage(${i + 1})">${i + 1}</button>`,
-  ).join("");
-
   container.innerHTML = `
-    <div class="table-wrap">
-      <table class="data-table">
+    <div class="dt-outer-wrap">
+      <table id="${dtId}" class="data-table dt-enabled display nowrap" style="width:100%">
         <thead><tr>${headerHtml}</tr></thead>
         <tbody>${rowsHtml}</tbody>
+        <tfoot><tr>${config.headers.map((h) => `<th>${h}</th>`).join("")}</tr></tfoot>
       </table>
-      <div class="table-footer">
-        <span class="table-info">Showing ${start + 1}–${Math.min(start + PAGE_SIZE, total)} of ${total} records</span>
-        <div class="pagination">
-          <button class="page-btn" onclick="goPage(${currentPage - 1})" ${currentPage === 1 ? "disabled" : ""}>‹</button>
-          ${paginationHtml}
-          <button class="page-btn" onclick="goPage(${currentPage + 1})" ${currentPage === totalPages ? "disabled" : ""}>›</button>
-        </div>
-      </div>
     </div>`;
+
+  // Wait a tick so DOM is ready
+  setTimeout(() => {
+    const tableEl = document.getElementById(dtId);
+    if (!tableEl) return;
+
+    const dtInstance = $(tableEl).DataTable({
+      dom:
+        "<'dt-toolbar'<'dt-toolbar-left'Bf><'dt-toolbar-right'l>>" +
+        "<'dt-body'rt>" +
+        "<'dt-footer'<'dt-footer-left'i><'dt-footer-right'p>>",
+
+      buttons: [
+        {
+          extend: "copyHtml5",
+          text: '<svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M16 1H4a2 2 0 00-2 2v14h2V3h12V1zm3 4H8a2 2 0 00-2 2v14a2 2 0 002 2h11a2 2 0 002-2V7a2 2 0 00-2-2zm0 16H8V7h11v14z"/></svg> Copy',
+          className: "dt-btn dt-btn-copy",
+          exportOptions: { columns: ":visible" },
+        },
+        {
+          extend: "csvHtml5",
+          text: '<svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z"/></svg> CSV',
+          className: "dt-btn dt-btn-csv",
+          filename: () => `terminus_${type}_${new Date().toISOString().split("T")[0]}`,
+          exportOptions: { columns: ":visible" },
+        },
+        {
+          extend: "excelHtml5",
+          text: '<svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M21.17 3.25Q21.5 3.25 21.76 3.5 22 3.74 22 4.08V19.92Q22 20.26 21.76 20.5 21.5 20.75 21.17 20.75H7.83Q7.5 20.75 7.24 20.5 7 20.26 7 19.92V17H2.83Q2.5 17 2.24 16.76 2 16.5 2 16.17V7.83Q2 7.5 2.24 7.24 2.5 7 2.83 7H7V4.08Q7 3.74 7.24 3.5 7.5 3.25 7.83 3.25M7 13.06L8.18 15.28H9.97L8 12.06 9.93 8.89H8.22L7 11.13 5.78 8.89H4.03L6 12.06 4.07 15.28H5.82M13.85 19.25V17H8.85V19.25M13.85 15.5V12.75H8.85V15.5M13.85 11.25V8.5H8.85V11.25M13.85 7V4.75H8.85V7M20.15 19.25V17H15.15V19.25M20.15 15.5V12.75H15.15V15.5M20.15 11.25V8.5H15.15V11.25M20.15 7V4.75H15.15V7Z"/></svg> Excel',
+          className: "dt-btn dt-btn-excel",
+          filename: () => `terminus_${type}_${new Date().toISOString().split("T")[0]}`,
+          exportOptions: { columns: ":visible" },
+        },
+        {
+          extend: "pdfHtml5",
+          text: '<svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M20 2H8a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2zm-8.5 7.5c0 .83-.67 1.5-1.5 1.5H9v2H7.5V7H10c.83 0 1.5.67 1.5 1.5v1zm5 2c0 .83-.67 1.5-1.5 1.5h-2.5V7H15c.83 0 1.5.67 1.5 1.5v3zm4-3H19v1h1.5V11H19v2h-1.5V7h3v1.5zM9 9.5h1v-1H9v1zM4 6H2v14a2 2 0 002 2h14v-2H4V6zm10 5.5h1v-3h-1v3z"/></svg> PDF',
+          className: "dt-btn dt-btn-pdf",
+          filename: () => `terminus_${type}_${new Date().toISOString().split("T")[0]}`,
+          title: `Terminus — ${(config.headers || []).join(", ")}`,
+          exportOptions: { columns: ":visible" },
+          customize: (doc) => {
+            doc.defaultStyle.fontSize = 9;
+            doc.styles.tableHeader.fillColor = "#1e293b";
+            doc.styles.tableHeader.color = "#ffffff";
+            doc.pageMargins = [20, 30, 20, 30];
+          },
+        },
+        {
+          extend: "print",
+          text: '<svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M19 8H5a3 3 0 00-3 3v6h4v4h12v-4h4v-6a3 3 0 00-3-3zm-3 11H8v-5h8v5zm3-7a1 1 0 110-2 1 1 0 010 2zm-1-9H6v4h12V3z"/></svg> Print',
+          className: "dt-btn dt-btn-print",
+          exportOptions: { columns: ":visible" },
+        },
+        {
+          extend: "colvis",
+          text: '<svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 12.5a5 5 0 110-10 5 5 0 010 10zm0-8a3 3 0 100 6 3 3 0 000-6z"/></svg> Columns',
+          className: "dt-btn dt-btn-colvis",
+        },
+      ],
+
+      scrollX: true,
+      autoWidth: true,
+      pageLength: 10,
+      lengthMenu: [
+        [10, 25, 50, 100, -1],
+        [10, 25, 50, 100, "All"],
+      ],
+      ordering: true,
+      order: [], // no default sort — preserve insertion order
+      responsive: false,
+      language: {
+        search: "",
+        searchPlaceholder: "Search records…",
+        lengthMenu: "Show _MENU_",
+        info: "Showing _START_–_END_ of _TOTAL_ records",
+        infoEmpty: "No records available",
+        infoFiltered: "(filtered from _MAX_)",
+        zeroRecords: "No matching records found",
+        emptyTable: "No data available",
+        paginate: {
+          first: "«",
+          last: "»",
+          next: "›",
+          previous: "‹",
+        },
+      },
+      initComplete() {
+        // Add tfoot column search inputs
+        this.api()
+          .columns()
+          .every(function () {
+            const col = this;
+            const th = $(col.footer());
+            const input = $(`<input type="text" placeholder="${th.text()}" class="dt-col-search">`)
+              .appendTo(th.empty())
+              .on("keyup change clear", function () {
+                if (col.search() !== this.value) {
+                  col.search(this.value).draw();
+                }
+              });
+          });
+      },
+    });
+
+    DTRegistry[dtId] = dtInstance;
+  }, 0);
 }
 
-function goPage(n) {
-  currentPage = n;
-  renderPage();
-}
-
-// Which container to render into
-function getReportContainer() {
-  const type = activeReportType;
-  if (type.startsWith("report-gi-")) return document.getElementById("active-report-table");
-  return document.getElementById("active-go-report-table");
-}
-
-// Override renderPage to use correct container
-const _origRenderPage = renderPage;
-
-// Filter buttons
-document.getElementById("btn-filter-gi").addEventListener("click", () => {
-  const filters = getGIFilters();
-  renderReport(activeReportType, filters);
+// ═══════════════════════════════════════
+// FILTER BUTTONS
+// ═══════════════════════════════════════
+document.getElementById("btn-filter-gi")?.addEventListener("click", () => {
+  renderReport(activeReportType, getGIFilters());
 });
-document.getElementById("btn-filter-go").addEventListener("click", () => {
-  const filters = getGOFilters();
-  renderReport(activeReportType, filters);
+document.getElementById("btn-filter-go")?.addEventListener("click", () => {
+  renderReport(activeReportType, getGOFilters());
+});
+
+// Legacy CSV button (kept for backward compat — DataTables CSV button is preferred)
+document.getElementById("btn-export-csv")?.addEventListener("click", () => {
+  const dtId = "dt_" + activeReportType.replace(/-/g, "_");
+  const dt = DTRegistry[dtId];
+  if (dt) {
+    dt.button(".dt-btn-csv").trigger();
+  } else {
+    showToast("No active table to export", "error");
+  }
 });
 
 function getGIFilters() {
   return {
-    from: document.getElementById("gi-filter-from").value,
-    to: document.getElementById("gi-filter-to").value,
-    container: document.getElementById("gi-filter-container").value,
-    truck: document.getElementById("gi-filter-truck").value,
-    shipping: document.getElementById("gi-filter-shipping").value,
+    from: document.getElementById("gi-filter-from")?.value || "",
+    to: document.getElementById("gi-filter-to")?.value || "",
+    container: document.getElementById("gi-filter-container")?.value || "",
+    truck: document.getElementById("gi-filter-truck")?.value || "",
+    shipping: document.getElementById("gi-filter-shipping")?.value || "",
   };
 }
 function getGOFilters() {
   return {
-    from: document.getElementById("go-filter-from").value,
-    to: document.getElementById("go-filter-to").value,
-    container: document.getElementById("go-filter-container").value,
-    truck: document.getElementById("go-filter-truck").value,
-    shipping: document.getElementById("go-filter-shipping").value,
+    from: document.getElementById("go-filter-from")?.value || "",
+    to: document.getElementById("go-filter-to")?.value || "",
+    container: document.getElementById("go-filter-container")?.value || "",
+    truck: document.getElementById("go-filter-truck")?.value || "",
+    shipping: document.getElementById("go-filter-shipping")?.value || "",
   };
 }
 
-// Sub-tab switching in report section
+// ═══════════════════════════════════════
+// REPORT SUB-TAB SWITCHING
+// ═══════════════════════════════════════
 document.querySelectorAll(".report-sub-tab").forEach((btn) => {
   btn.addEventListener("click", () => {
     const parent = btn.closest(".tab-content");
     parent.querySelectorAll(".report-sub-tab").forEach((t) => t.classList.remove("active"));
     btn.classList.add("active");
-    const type = btn.dataset.report;
-    activeReportType = type;
-    renderReport(type);
+    activeReportType = btn.dataset.report;
+    renderReport(activeReportType);
   });
 });
 
 // ═══════════════════════════════════════
-// EXPORT CSV
+// DYNAMIC TABLE CREATOR
 // ═══════════════════════════════════════
-document.getElementById("btn-export-csv")?.addEventListener("click", () => exportCSV());
-
-function exportCSV() {
-  const config = reportConfigs[activeReportType];
-  if (!filteredData.length) {
-    showToast("No data to export", "error");
-    return;
+// Usage:
+//   createCustomTable({
+//     containerId: "my-container-div",   // id of wrapper element where table should appear
+//     tableId:     "my_custom_table",    // unique id for this table
+//     headers:     ["Col A","Col B"],    // column display names
+//     columns:     ["colA","colB"],      // data key names
+//     data:        [{colA:"x",colB:"y"}],// row data array
+//     filters:     {}                    // optional filter object
+//   });
+//
+function createCustomTable({ containerId, tableId, headers, columns, data = [], filters = {} }) {
+  const wrapper = document.getElementById(containerId);
+  if (!wrapper) {
+    console.error(`createCustomTable: container #${containerId} not found`);
+    return null;
   }
-  const header = config.headers.join(",");
-  const rows = filteredData
-    .map((r) => config.columns.map((c) => `"${r[c] || ""}"`).join(","))
-    .join("\n");
-  const blob = new Blob([header + "\n" + rows], { type: "text/csv" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `terminus_report_${activeReportType}.csv`;
-  a.click();
-  showToast("CSV exported successfully");
+
+  // Inject a wrapper div inside the container
+  let wrapDiv = document.getElementById(tableId + "_wrap");
+  if (!wrapDiv) {
+    wrapDiv = document.createElement("div");
+    wrapDiv.id = tableId + "_wrap";
+    wrapper.appendChild(wrapDiv);
+  }
+
+  const customCfg = { headers, columns, getData: () => data };
+
+  renderReport(
+    tableId, // type (used as DT id key)
+    filters,
+    tableId, // tableId override
+    data,
+    customCfg,
+  );
+
+  return {
+    /** Add a row and refresh the table */
+    addRow(row) {
+      data.push(row);
+      renderReport(tableId, filters, tableId, data, customCfg);
+    },
+    /** Replace all data */
+    setData(newData) {
+      data.length = 0;
+      newData.forEach((r) => data.push(r));
+      renderReport(tableId, filters, tableId, data, customCfg);
+    },
+    /** Destroy the DataTable and remove the element */
+    destroy() {
+      if (DTRegistry[tableId]) {
+        try {
+          DTRegistry[tableId].destroy();
+        } catch (_) {}
+        delete DTRegistry[tableId];
+      }
+      wrapDiv.remove();
+    },
+    /** Get the underlying DataTables instance */
+    getInstance() {
+      return DTRegistry[tableId];
+    },
+  };
 }
 
+// Expose globally so external scripts can use it
+window.createCustomTable = createCustomTable;
+window.DTRegistry = DTRegistry;
+window.renderReport = renderReport;
+
 // ═══════════════════════════════════════
-// MANAGE — Profile save
+// MANAGE — profile & user
 // ═══════════════════════════════════════
 document.getElementById("btn-save-profile")?.addEventListener("click", () => {
   showToast("Profile saved successfully");
@@ -742,14 +950,19 @@ document.getElementById("today-date").textContent = today.toLocaleDateString("en
 initData().then(() => {
   renderReport("report-gi-import");
   refreshRecentEntries();
+
+  // Fix first table layout
+  setTimeout(() => {
+    $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+  }, 300);
 });
 
 // ═══════════════════════════════════════
 // CAPTURE SYSTEM
 // ═══════════════════════════════════════
-let captureTargetInput = null; // the <input> we'll fill
-let captureStream = null; // active MediaStream
-let captureUsingFront = false; // front vs back camera
+let captureTargetInput = null;
+let captureStream = null;
+let captureUsingFront = false;
 
 const modal = document.getElementById("capture-modal");
 const backdrop = document.getElementById("capture-backdrop");
@@ -764,7 +977,6 @@ const chipsEl = document.getElementById("extracted-chips");
 const confirmRow = document.getElementById("cam-confirm-row");
 const confirmIn = document.getElementById("cam-confirm-input");
 
-// ---------- open / close ----------
 function openCapture(inputEl, labelText) {
   captureTargetInput = inputEl;
   document.getElementById("capture-modal-label").textContent = labelText || "Capture";
@@ -788,7 +1000,6 @@ function closeCapture() {
 document.getElementById("capture-close").addEventListener("click", closeCapture);
 backdrop.addEventListener("click", closeCapture);
 
-// ---------- tabs ----------
 document.querySelectorAll(".capture-tab").forEach((btn) => {
   btn.addEventListener("click", () => switchCaptureTab(btn.dataset.ctab));
 });
@@ -798,17 +1009,15 @@ function switchCaptureTab(tab) {
     .querySelectorAll(".capture-tab")
     .forEach((b) => b.classList.toggle("active", b.dataset.ctab === tab));
   document.querySelectorAll(".capture-panel").forEach((p) => p.classList.remove("active"));
-  document.getElementById(`capture-panel-${tab}`).classList.add("active");
+  document.getElementById(`capture-panel-${tab}`)?.classList.add("active");
   if (tab === "camera") startCamera();
   else stopCamera();
 }
 
-// ---------- camera ----------
 async function startCamera() {
   stopCamera();
   resetCamera();
   setStatus("Starting camera…", "loading");
-
   const constraints = {
     video: {
       facingMode: captureUsingFront ? "user" : "environment",
@@ -816,7 +1025,6 @@ async function startCamera() {
       height: { ideal: 720 },
     },
   };
-
   try {
     captureStream = await navigator.mediaDevices.getUserMedia(constraints);
     video.srcObject = captureStream;
@@ -825,7 +1033,6 @@ async function startCamera() {
   } catch (err) {
     console.warn("Camera error:", err);
     setStatus("Camera unavailable — use Manual Entry", "error");
-    // auto-switch to manual
     setTimeout(() => switchCaptureTab("manual"), 1200);
   }
 }
@@ -853,62 +1060,39 @@ function resetCamera() {
   chipsEl.innerHTML = "";
 }
 
-// ---------- switch camera ----------
 document.getElementById("btn-switch-cam").addEventListener("click", () => {
   captureUsingFront = !captureUsingFront;
   startCamera();
 });
 
-// ---------- snap ----------
 document.getElementById("btn-capture-snap").addEventListener("click", () => {
   if (!captureStream) return;
-
   canvas.width = video.videoWidth || 640;
   canvas.height = video.videoHeight || 480;
-  const ctx = canvas.getContext("2d");
-  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
+  canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
   const dataUrl = canvas.toDataURL("image/jpeg", 0.9);
   previewImg.src = dataUrl;
   preview.style.display = "block";
   video.style.display = "none";
-
   document.getElementById("btn-capture-snap").style.display = "none";
   document.getElementById("btn-retake").style.display = "flex";
-
-  // Simulate OCR extraction (browser has no built-in OCR, so we present helpful UI)
   extractTextFromImage(dataUrl);
 });
 
-// ---------- retake ----------
 document.getElementById("btn-retake").addEventListener("click", () => {
   resetCamera();
   startCamera();
 });
 
-// ---------- pseudo-OCR / text extraction ----------
-// Real OCR requires a server or Tesseract.js (large lib). We provide a smart manual assist flow.
 function extractTextFromImage(dataUrl) {
   setStatus("Processing image…", "loading");
-
-  // Give user a moment then show the confirm input pre-filled with context hint
   setTimeout(() => {
     setStatus("Image captured — enter the value below", "ready");
-
     const fieldName = captureTargetInput?.name || captureTargetInput?.placeholder || "value";
     const isContainer = /container/i.test(fieldName);
-
-    // Show a helpful prompt
     chipsWrap.style.display = "flex";
-
-    // Give smart placeholder chips based on field type
     const hints = isContainer ? ["TCLU ______", "MSKU ______", "CMAU ______", "HLXU ______"] : [];
-
-    chipsEl.innerHTML = hints.length
-      ? hints.map((h) => `<span class="chip hint-chip">${h}</span>`).join("")
-      : "";
-
-    // Show editable confirm field
+    chipsEl.innerHTML = hints.map((h) => `<span class="chip hint-chip">${h}</span>`).join("");
     confirmRow.style.display = "flex";
     confirmIn.value = "";
     confirmIn.placeholder = isContainer
@@ -918,7 +1102,6 @@ function extractTextFromImage(dataUrl) {
   }, 600);
 }
 
-// Use captured value
 document.getElementById("btn-cam-confirm").addEventListener("click", () => {
   const val = confirmIn.value.trim();
   if (!val) {
@@ -931,7 +1114,6 @@ confirmIn.addEventListener("keydown", (e) => {
   if (e.key === "Enter") document.getElementById("btn-cam-confirm").click();
 });
 
-// Chip click → fill confirm input
 chipsEl.addEventListener("click", (e) => {
   const chip = e.target.closest(".chip");
   if (!chip) return;
@@ -944,7 +1126,6 @@ chipsEl.addEventListener("click", (e) => {
   chip.classList.add("selected");
 });
 
-// ---------- manual confirm ----------
 document.getElementById("btn-manual-confirm").addEventListener("click", () => {
   const val = document.getElementById("manual-entry-input").value.trim();
   if (!val) {
@@ -957,14 +1138,11 @@ document.getElementById("manual-entry-input").addEventListener("keydown", (e) =>
   if (e.key === "Enter") document.getElementById("btn-manual-confirm").click();
 });
 
-// ---------- fill target + close ----------
 function fillTarget(value) {
   if (captureTargetInput) {
     captureTargetInput.value = value;
     captureTargetInput.dispatchEvent(new Event("input", { bubbles: true }));
     captureTargetInput.dispatchEvent(new Event("change", { bubbles: true }));
-
-    // Flash the input green
     captureTargetInput.style.transition = "border-color 0.2s, background 0.2s";
     captureTargetInput.style.borderColor = "var(--success)";
     captureTargetInput.style.background = "var(--success-light)";
@@ -977,19 +1155,15 @@ function fillTarget(value) {
   closeCapture();
 }
 
-// ---------- wire every capture button ----------
 function bindCaptureBtns() {
   document.querySelectorAll(".capture-btn").forEach((btn) => {
-    // Avoid double-binding
     if (btn.dataset.captureBound) return;
     btn.dataset.captureBound = "1";
-
     btn.addEventListener("click", (e) => {
       e.preventDefault();
       const field = btn.closest(".field");
       const input = field?.querySelector("input");
       if (!input) return;
-      // Determine a nice label from the sibling <label>
       const labelEl = field.querySelector("label");
       const labelText = labelEl ? labelEl.textContent.replace("*", "").trim() : "Capture";
       openCapture(input, labelText);
@@ -997,15 +1171,14 @@ function bindCaptureBtns() {
   });
 }
 
-// Run on load (and again after any dynamic content)
 bindCaptureBtns();
 
-const name = document.querySelector(".uname").textContent;
-
-const initials = name
+// User avatar initials
+const uname = document.querySelector(".uname")?.textContent || "";
+const initials = uname
   .split(" ")
-  .map((word) => word[0])
+  .map((w) => w[0])
   .join("")
   .toUpperCase();
-
-document.querySelector(".user-avatar").textContent = initials;
+const avatarEl = document.querySelector(".user-avatar");
+if (avatarEl) avatarEl.textContent = initials;
